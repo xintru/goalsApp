@@ -1,0 +1,8 @@
+/node_modules
+/client/node_modules
+
+/secrets
+/client/secrets
+
+/.idea
+/.vscode
