@@ -1,8 +1,0 @@
-{
-  "extends": "airbnb",
-  "rules": {
-    "max-len": ["error", 140],
-    "semi": [2, "never"],
-    "linebreak-style": 0
-  }
-}
