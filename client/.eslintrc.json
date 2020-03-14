@@ -25,6 +25,7 @@
     "indent": ["error", 2],
     "react/jsx-indent": ["error", 2],
     "semi": [2, "never"],
+    "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "prettier/prettier": [
       "error",
@@ -32,6 +33,7 @@
         "endOfLine": "auto",
         "semi": false,
         "singleQuote": true,
+        "trailingComma": "all",
         "max-len": [
           "error",
           {
