@@ -19,6 +19,13 @@ app.use((error, req, res, next) => {
     .json({ message: error.message || 'Something went wrong.' })
 })
 
-app.listen(5000, () => {
-  console.log('server started')
-})
+mongoose
+  .connect(
+    'mongodb+srv://admin:test123@diplomacluster-khs7e.mongodb.net/landmarks?retryWrites=true&w=majority',
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => {
+    app.listen(5000)
+    console.log('server started')
+  })
+  .catch(error => console.log(error))

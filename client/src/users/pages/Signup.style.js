@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   card: {
     width: '20vw',
     minWidth: 300,
-    height: '18rem',
+    height: '20rem',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
