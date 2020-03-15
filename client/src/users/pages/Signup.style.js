@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   card: {
     width: '20vw',
     minWidth: 300,
-    height: '20rem',
+    minHeight: '25rem',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
@@ -20,6 +20,9 @@ const useStyles = makeStyles({
   },
   textField: {
     width: '100%',
+  },
+  submitButton: {
+    marginTop: 10,
   },
 })
 
