@@ -62,7 +62,9 @@ exports.signUp = async (req, res, next) => {
     return next(new HttpError('Signing up failed', 500))
   }
 
-  res.status(201).json({ id: newUser.id, email: newUser.email, token })
+  res
+    .status(201)
+    .json({ id: newUser.id, name: newUser.name, email: newUser.email, token })
 }
 
 exports.login = async (req, res, next) => {
@@ -105,5 +107,5 @@ exports.login = async (req, res, next) => {
     return next(new HttpError('Logging in failed', 500))
   }
 
-  res.json({ userId: user.id, email: user.email, token })
+  res.json({ userId: user.id, name: user.name, email: user.email, token })
 }

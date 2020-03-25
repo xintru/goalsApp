@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
+    height: 'calc(100vh - 64px)',
   },
   card: {
     width: '20vw',

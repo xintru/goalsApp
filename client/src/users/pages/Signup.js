@@ -24,7 +24,7 @@ const Signup = () => {
         password: formState.inputs.password.value,
         confirmPassword: formState.inputs.confirmPassword.value,
       })
-      login(response.token, response.userId)
+      login(response.token, response.name, response.userId)
       history.push('/')
       // eslint-disable-next-line no-empty
     } catch (error) {}

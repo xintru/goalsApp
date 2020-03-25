@@ -6,20 +6,23 @@ const useAuth = () => {
   const [token, setToken] = useState()
   const [tokenExpirationDate, setTokenExpirationDate] = useState()
   const [userId, setUserId] = useState()
+  const [username, setUsername] = useState()
 
-  const login = useCallback((newToken, uid, expDate) => {
+  const login = useCallback((newToken, name, uid, expDate) => {
     setToken(newToken)
     const expirationDate =
-      expDate || new Date(new Date().getTime() + 1000 * 360)
+      expDate || new Date(new Date().getTime() + 1000 * 3600)
     setTokenExpirationDate(expirationDate)
     localStorage.setItem(
       'diplomaUserData',
       JSON.stringify({
         userId: uid,
+        username: name,
         token: newToken,
         expiration: expirationDate.toISOString(),
       })
     )
+    setUsername(name)
     setUserId(uid)
   }, [])
 
@@ -27,12 +30,12 @@ const useAuth = () => {
     setToken(null)
     setTokenExpirationDate(null)
     setUserId(null)
+    setUsername(null)
     localStorage.removeItem('diplomaUserData')
   }, [])
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('diplomaUserData'))
-    console.log(storedData)
     if (
       storedData &&
       storedData.token &&
@@ -40,6 +43,7 @@ const useAuth = () => {
     ) {
       login(
         storedData.token,
+        storedData.username,
         storedData.userId,
         new Date(storedData.expiration)
       )
@@ -58,6 +62,7 @@ const useAuth = () => {
   return {
     token,
     userId,
+    username,
     login,
     logout,
   }

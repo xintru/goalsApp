@@ -22,7 +22,7 @@ const Login = () => {
       email: formState.inputs.email.value,
       password: formState.inputs.password.value,
     })
-    login(response.token, response.userId)
+    login(response.token, response.name, response.userId)
     history.push('/')
   }
 

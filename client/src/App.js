@@ -9,6 +9,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 
 import { AuthContext } from './util/context/auth-context'
 import { MAIN_PAGE, SIGN_UP, LOGIN } from './util/constants/routes'
+import Toolbar from './shared/header/Toolbar'
 
 import useAuth from './util/hooks/auth-hook'
 import MainPage from './places/pages/MainPage'
@@ -18,13 +19,16 @@ import Layout from './util/components/Layout/Layout'
 import theme from './util/theme/theme'
 
 const App = () => {
-  const { token, login, logout } = useAuth()
+  const { token, login, logout, username } = useAuth()
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!token, token, login, logout }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn: !!token, username, token, login, logout }}
+    >
       <ThemeProvider theme={theme}>
-        <Layout>
-          <Router>
+        <Router>
+          <Toolbar />
+          <Layout>
             {token ? (
               <Switch>
                 <Route exact path={MAIN_PAGE} component={MainPage} />
@@ -38,8 +42,8 @@ const App = () => {
                 <Redirect to={LOGIN} />
               </Switch>
             )}
-          </Router>
-        </Layout>
+          </Layout>
+        </Router>
       </ThemeProvider>
     </AuthContext.Provider>
   )
