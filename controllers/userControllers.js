@@ -82,7 +82,7 @@ exports.login = async (req, res, next) => {
   }
 
   if (!user) {
-    return next('Invalid email or password', 403)
+    return next(new HttpError('Invalid email or password', 403))
   }
 
   let isValidPassword = false

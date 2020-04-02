@@ -3,13 +3,21 @@ import Axios from 'axios'
 
 const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [loadingMessage, setLoadingMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState(false)
 
   const activeHttpRequests = useRef([])
 
   const request = useCallback(
-    async (url, method = 'GET', body = null, headers = {}) => {
+    async (
+      url,
+      method = 'GET',
+      body = null,
+      headers = {},
+      loadMessage = 'Loading...'
+    ) => {
       setIsLoading(true)
+      setLoadingMessage(loadMessage)
       const httpAbortController = new AbortController()
       activeHttpRequests.current.push(httpAbortController)
       try {
@@ -25,10 +33,12 @@ const useHttp = () => {
         )
 
         setIsLoading(false)
+        setLoadingMessage('')
         return response.data
       } catch (err) {
         setIsLoading(false)
-        setError(err.message)
+        setLoadingMessage('')
+        setErrorMessage(err.response.data.message)
         throw err
       }
     },
@@ -36,7 +46,7 @@ const useHttp = () => {
   )
 
   const clearError = () => {
-    setError(null)
+    setErrorMessage(null)
   }
 
   useEffect(() => {
@@ -47,7 +57,8 @@ const useHttp = () => {
 
   return {
     isLoading,
-    error,
+    loadingMessage,
+    errorMessage,
     request,
     clearError,
   }

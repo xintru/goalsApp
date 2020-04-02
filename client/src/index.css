@@ -11,7 +11,7 @@ a:hover {
 }
 
 a:visited {
-  color: black;
+  color: inherit;
 }
 
 .centered {

@@ -3,7 +3,7 @@ import { Paper, Typography, TextField, Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 
 import { AuthContext } from '../../util/context/auth-context'
-import useHttp from '../../util/hooks/http-hook'
+import { HttpContext } from '../../util/context/http-context'
 import useStyles from './Signup.style'
 import signupInputs from '../inputs/signup'
 import useForm from '../../util/hooks/form-hook'
@@ -12,18 +12,24 @@ const Signup = () => {
   const { formState, onInputHandler } = useForm(signupInputs, false)
   const history = useHistory()
   const classes = useStyles()
-  const { request } = useHttp()
+  const { request } = useContext(HttpContext)
   const { login } = useContext(AuthContext)
 
   const onAuthenticateHandler = async event => {
     event.preventDefault()
     try {
-      const response = await request('/api/auth/signup', 'POST', {
-        name: formState.inputs.username.value,
-        email: formState.inputs.email.value,
-        password: formState.inputs.password.value,
-        confirmPassword: formState.inputs.confirmPassword.value,
-      })
+      const response = await request(
+        '/api/auth/signup',
+        'POST',
+        {
+          name: formState.inputs.username.value,
+          email: formState.inputs.email.value,
+          password: formState.inputs.password.value,
+          confirmPassword: formState.inputs.confirmPassword.value,
+        },
+        null,
+        'Signing you up...'
+      )
       login(response.token, response.name, response.userId)
       history.push('/')
       // eslint-disable-next-line no-empty

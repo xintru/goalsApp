@@ -3,25 +3,31 @@ import { Link, useHistory } from 'react-router-dom'
 import { Paper, Typography, TextField, Button } from '@material-ui/core'
 
 import { AuthContext } from '../../util/context/auth-context'
+import { HttpContext } from '../../util/context/http-context'
 import useStyles from './Login.style'
 import { SIGN_UP } from '../../util/constants/routes'
-import useHttp from '../../util/hooks/http-hook'
 import useForm from '../../util/hooks/form-hook'
 import loginInputs from '../inputs/login'
 
 const Login = () => {
   const { formState, onInputHandler } = useForm(loginInputs, false)
   const classes = useStyles()
-  const { request } = useHttp()
+  const { request } = useContext(HttpContext)
   const { login } = useContext(AuthContext)
   const history = useHistory()
 
   const onAuthenticateHandler = async event => {
     event.preventDefault()
-    const response = await request('/api/auth/login', 'POST', {
-      email: formState.inputs.email.value,
-      password: formState.inputs.password.value,
-    })
+    const response = await request(
+      '/api/auth/login',
+      'POST',
+      {
+        email: formState.inputs.email.value,
+        password: formState.inputs.password.value,
+      },
+      null,
+      'Logging in...'
+    )
     login(response.token, response.name, response.userId)
     history.push('/')
   }
