@@ -16,7 +16,7 @@ const Login = () => {
   const { login } = useContext(AuthContext)
   const history = useHistory()
 
-  const onAuthenticateHandler = async event => {
+  const onAuthenticateHandler = async (event) => {
     event.preventDefault()
     const response = await request(
       '/api/auth/login',
@@ -42,7 +42,7 @@ const Login = () => {
           autoComplete="no"
         >
           <Typography variant="h5">Login</Typography>
-          {loginInputs.map(input => (
+          {loginInputs.map((input) => (
             <TextField
               className={classes.textField}
               key={input.id}
@@ -58,10 +58,10 @@ const Login = () => {
                 !formState.inputs[input.id].isValid &&
                 formState.inputs[input.id].touched
               }
-              onChange={evt =>
+              onChange={(evt) =>
                 onInputHandler(input.id, evt.target.value.trimLeft())
               }
-              onBlur={evt =>
+              onBlur={(evt) =>
                 onInputHandler(input.id, evt.target.value.trimLeft())
               }
               value={formState.inputs[input.id].value}

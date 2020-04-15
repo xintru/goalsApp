@@ -9,14 +9,14 @@ const checkValidity = (state, action) => {
         ...state.inputs[action.id],
         value: action.value,
         isValid: state.inputs[action.id].validators
-          .map(validator => validator(action.value))
+          .map((validator) => validator(action.value))
           .reduce((a, b) => a && b),
         touched: true,
       },
     },
   }
   newState.formIsValid = Object.entries(newState.inputs)
-    .map(input => input[1].isValid && input[1].touched)
+    .map((input) => input[1].isValid && input[1].touched)
     .reduce((a, b) => a && b)
 
   return newState
@@ -33,7 +33,7 @@ const formReducer = (state, action) => {
 
 const useForm = (initialInputs, initialFormValidity) => {
   const inputObj = {}
-  initialInputs.forEach(input => {
+  initialInputs.forEach((input) => {
     inputObj[input.id] = {
       value: '',
       isValid: false,

@@ -24,10 +24,10 @@ const ToolbarComponent = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const { isLoggedIn, username, logout } = useContext(AuthContext)
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
 
-  const handleOpenMenu = event => {
+  const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget)
   }
 

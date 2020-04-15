@@ -35,6 +35,7 @@
         "semi": false,
         "singleQuote": true,
         "trailingComma": "es5",
+        "arrowParens": "always",
         "max-len": [
           "error",
           {

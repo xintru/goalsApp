@@ -29,7 +29,7 @@ const useHttp = () => {
         })
 
         activeHttpRequests.current = activeHttpRequests.current.filter(
-          controller => controller !== httpAbortController
+          (controller) => controller !== httpAbortController
         )
 
         setIsLoading(false)
@@ -51,7 +51,7 @@ const useHttp = () => {
 
   useEffect(() => {
     return () => {
-      activeHttpRequests.current.forEach(controller => controller.abort())
+      activeHttpRequests.current.forEach((controller) => controller.abort())
     }
   }, [])
 

@@ -6,7 +6,7 @@ import { Container, Snackbar, CircularProgress } from '@material-ui/core'
 import { HttpContext } from '../../context/http-context'
 import useStyles from './Layout.style'
 
-const Layout = props => {
+const Layout = (props) => {
   const classes = useStyles()
   const { isLoading, loadingMessage, errorMessage, clearError } = useContext(
     HttpContext

@@ -15,7 +15,7 @@ const Signup = () => {
   const { request } = useContext(HttpContext)
   const { login } = useContext(AuthContext)
 
-  const onAuthenticateHandler = async event => {
+  const onAuthenticateHandler = async (event) => {
     event.preventDefault()
     try {
       const response = await request(
@@ -46,7 +46,7 @@ const Signup = () => {
           autoComplete="no"
         >
           <Typography variant="h5">SignUp</Typography>
-          {signupInputs.map(input => (
+          {signupInputs.map((input) => (
             <TextField
               className={classes.textField}
               key={input.id}
@@ -62,10 +62,10 @@ const Signup = () => {
                 !formState.inputs[input.id].isValid &&
                 formState.inputs[input.id].touched
               }
-              onChange={evt =>
+              onChange={(evt) =>
                 onInputHandler(input.id, evt.target.value.trimLeft())
               }
-              onBlur={evt =>
+              onBlur={(evt) =>
                 onInputHandler(input.id, evt.target.value.trimLeft())
               }
               value={formState.inputs[input.id].value}

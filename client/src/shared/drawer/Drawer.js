@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import { SwipeableDrawer } from '@material-ui/core'
 import useStyles from './Drawer.style'
 
-const Drawer = props => {
+const Drawer = (props) => {
   const { open, onClose, onOpen, children } = props
   const classes = useStyles()
   return (
