@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
-import { Container, Snackbar, CircularProgress } from '@material-ui/core'
+import { Snackbar, CircularProgress } from '@material-ui/core'
 
 import { HttpContext } from '../../context/http-context'
 import useStyles from './Layout.style'
@@ -29,9 +29,9 @@ const Layout = (props) => {
 
   return (
     <div className={classes.root}>
-      <Container maxWidth="lg" className={classes.wrapper}>
-        {children}
-      </Container>
+      {/* <Container maxWidth="lg" className={classes.wrapper}> */}
+      {children}
+      {/* </Container> */}
       {renderSnackbar()}
     </div>
   )
