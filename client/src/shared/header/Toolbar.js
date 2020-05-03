@@ -7,6 +7,7 @@ import {
   Menu,
   MenuItem,
   Button,
+  Box,
 } from '@material-ui/core'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
@@ -50,7 +51,12 @@ const ToolbarComponent = () => {
           </IconButton>
         )}
         <Typography variant="h6" className={classes.title}>
-          <Link to="/">Приложуха</Link>
+          <Link to="/">
+            Bread
+            <Box component="span" color="#FF5722">
+              crumbs
+            </Box>
+          </Link>
         </Typography>
         {isLoggedIn && (
           <div className={classes.username} edge="end">
