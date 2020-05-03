@@ -9,12 +9,18 @@ import { ThemeProvider } from '@material-ui/core/styles'
 
 import { AuthContext } from './util/context/auth-context'
 import { HttpContext } from './util/context/http-context'
-import { MAIN_PAGE, SIGN_UP, LOGIN } from './util/constants/routes'
+import {
+  STARTING_PAGE,
+  MAIN_PAGE,
+  SIGN_UP,
+  LOGIN,
+} from './util/constants/routes'
 import Toolbar from './shared/header/Toolbar'
 
 import useAuth from './util/hooks/auth-hook'
 import useHttp from './util/hooks/http-hook'
-import MainPage from './places/pages/MainPage'
+import MainPage from './goals/pages/MainPage'
+import StartingPage from './shared/StartingPage/StartingPage'
 import Signup from './users/pages/Signup'
 import Login from './users/pages/Login'
 import Layout from './util/components/Layout/Layout'
@@ -47,10 +53,10 @@ const App = () => {
                 </Switch>
               ) : (
                 <Switch>
-                  {/* <Route exact path={MAIN_PAGE} component={MainPage} /> */}
+                  <Route exact path={STARTING_PAGE} component={StartingPage} />
                   <Route exact path={SIGN_UP} component={Signup} />
                   <Route exact path={LOGIN} component={Login} />
-                  <Redirect to={LOGIN} />
+                  <Redirect to={STARTING_PAGE} />
                 </Switch>
               )}
             </Layout>

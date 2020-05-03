@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100vw',
     minHeight: 'calc(100vh - 64px)',
-    background: theme.palette.primary.dark,
+    background: theme.palette.whiteBg,
     [theme.breakpoints.down('sm')]: {
       minHeight: 'calc(100vh - 56px)',
     },
