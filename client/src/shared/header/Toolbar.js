@@ -55,7 +55,7 @@ const ToolbarComponent = () => {
         <Typography variant="h6" className={classes.title}>
           <Link to={isLoggedIn ? MAIN_PAGE : STARTING_PAGE}>
             Bread
-            <Box component="span" color="secondary">
+            <Box component="span" color="secondary.main">
               crumbs
             </Box>
           </Link>

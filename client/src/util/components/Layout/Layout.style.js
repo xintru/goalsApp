@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100vw',
+    overflow: 'hidden',
     minHeight: 'calc(100vh - 64px)',
     background: theme.palette.whiteBg,
     [theme.breakpoints.down('sm')]: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapper: {
     minHeight: 'calc(100vh - 64px)',
-    background: theme.palette.primary.main,
+    background: 'transparent',
     [theme.breakpoints.down('sm')]: {
       minHeight: 'calc(100vh - 56px)',
     },

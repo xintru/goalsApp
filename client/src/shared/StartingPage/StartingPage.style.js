@@ -15,8 +15,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
   },
   btn: {
-    marginTop: '2rem',
-    padding: '15px 30px',
+    marginTop: '5rem',
+    width: '15rem',
+    height: '3.5rem',
     fontSize: '1rem',
   },
 }))

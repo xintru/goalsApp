@@ -2,11 +2,10 @@ import React from 'react'
 import { Typography, Button, Box } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 
-import Gallery from '../UI/Gallery/Gallery'
-
 import useStyles from './StartingPage.style'
-
+import Slider from '../UI/Gallery/Slider'
 import { SIGN_UP } from '../../util/constants/routes'
+import { initialSlides } from '../../util/constants/startingPageSlides'
 
 const StartingPage = () => {
   const classes = useStyles()
@@ -15,7 +14,7 @@ const StartingPage = () => {
       <div className={classes.infoContainer}>
         <Typography variant="h2" className={classes.title}>
           BREAD
-          <Box component="span" color="secondary">
+          <Box component="span" color="secondary.main">
             CRUMBS
           </Box>
         </Typography>
@@ -24,7 +23,7 @@ const StartingPage = () => {
           эффективно.
         </Typography>
       </div>
-      <Gallery />
+      <Slider initialSlides={initialSlides} />
       <Link to={SIGN_UP}>
         <Button
           variant="contained"
