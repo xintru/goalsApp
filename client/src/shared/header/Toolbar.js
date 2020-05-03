@@ -20,6 +20,8 @@ import Drawer from '../drawer/Drawer'
 import { AuthContext } from '../../util/context/auth-context'
 import useStyles from './Toolbar.style.'
 
+import { MAIN_PAGE, STARTING_PAGE } from '../../util/constants/routes'
+
 const ToolbarComponent = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -51,9 +53,9 @@ const ToolbarComponent = () => {
           </IconButton>
         )}
         <Typography variant="h6" className={classes.title}>
-          <Link to="/">
+          <Link to={isLoggedIn ? MAIN_PAGE : STARTING_PAGE}>
             Bread
-            <Box component="span" color="#FF5722">
+            <Box component="span" color="secondary">
               crumbs
             </Box>
           </Link>
