@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import Slide from './Slide'
@@ -12,7 +12,7 @@ const Slider = (props) => {
   const [direction, setDirection] = useState(0)
   const [slides, setSlides] = useState(initialSlides)
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setSliding(true)
     setDirection(1)
     setTimeout(() => {
@@ -32,9 +32,9 @@ const Slider = (props) => {
       setSliding(false)
       setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
     }, 500)
-  }
+  }, [slides.length])
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setSliding(true)
     setDirection(-1)
     setTimeout(() => {
@@ -51,7 +51,26 @@ const Slider = (props) => {
       setSliding(false)
       setCurrent((prev) => (prev - 1 < 0 ? slides.length - 1 : prev - 1))
     }, 500)
-  }
+  }, [slides.length])
+
+  const keyHandler = useCallback(
+    (event) => {
+      if (event.keyCode === 37) {
+        handlePrev()
+      }
+      if (event.keyCode === 39) {
+        handleNext()
+      }
+    },
+    [handlePrev, handleNext]
+  )
+
+  useEffect(() => {
+    document.addEventListener('keydown', keyHandler)
+    return () => {
+      document.removeEventListener('keydown', keyHandler)
+    }
+  }, [keyHandler])
 
   const handleSlideClick = (index) => {
     if (current !== index) {
