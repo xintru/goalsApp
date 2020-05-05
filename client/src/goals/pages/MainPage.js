@@ -1,5 +1,11 @@
 import React from 'react'
 
-const MainPage = () => <div className="centered">MAIN PAGE</div>
+import Summary from '../components/Summary/Summary'
+
+const MainPage = () => (
+  <div className="centered">
+    <Summary />
+  </div>
+)
 
 export default MainPage
