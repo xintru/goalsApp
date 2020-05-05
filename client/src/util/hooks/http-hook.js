@@ -1,12 +1,25 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
-import Axios from 'axios'
+import axios from 'axios'
+
+const createTokenInterceptor = (token) => (request) => {
+  if (token) {
+    request.headers.Authorization = `Bearer ${token}`
+  } else {
+    delete request.headers.Authorization
+  }
+  return request
+}
 
 const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [loadingMessage, setLoadingMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState(false)
-
   const activeHttpRequests = useRef([])
+
+  // Token interceptor
+  const { token } = JSON.parse(localStorage.getItem('breadCrumbsUserData'))
+  const setTokenCb = createTokenInterceptor(token)
+  axios.interceptors.request.use(setTokenCb, (error) => Promise.reject(error))
 
   const request = useCallback(
     async (
@@ -21,7 +34,7 @@ const useHttp = () => {
       const httpAbortController = new AbortController()
       activeHttpRequests.current.push(httpAbortController)
       try {
-        const response = await Axios({
+        const response = await axios({
           url,
           method,
           data: body,

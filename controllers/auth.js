@@ -43,6 +43,7 @@ exports.signUp = async (req, res, next) => {
     email,
     name,
     password: hashedPassword,
+    goals: [],
   })
 
   try {

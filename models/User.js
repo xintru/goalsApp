@@ -23,6 +23,7 @@ const userSchema = new Schema({
   image: {
     type: String,
   },
+  goals: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Goal' }],
 })
 
 userSchema.plugin(uniqueValidator)

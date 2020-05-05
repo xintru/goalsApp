@@ -14,7 +14,7 @@ const useAuth = () => {
       expDate || new Date(new Date().getTime() + 1000 * 3600)
     setTokenExpirationDate(expirationDate)
     localStorage.setItem(
-      'diplomaUserData',
+      'breadCrumbsUserData',
       JSON.stringify({
         userId: uid,
         username: name,
@@ -31,11 +31,11 @@ const useAuth = () => {
     setTokenExpirationDate(null)
     setUserId(null)
     setUsername(null)
-    localStorage.removeItem('diplomaUserData')
+    localStorage.removeItem('breadCrumbsUserData')
   }, [])
 
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('diplomaUserData'))
+    const storedData = JSON.parse(localStorage.getItem('breadCrumbsUserData'))
     if (
       storedData &&
       storedData.token &&

@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const authRoutes = require('./routes/auth')
+const userRoutes = require('./routes/user')
+const goalRoutes = require('./routes/goal')
 const HttpError = require('./models/http-error')
 
 const app = express()
@@ -13,6 +15,8 @@ app.use(bodyParser.json())
 app.use('/uploads/images', express.static(path.join('uploads', 'images')))
 
 app.use('/api/auth/', authRoutes)
+app.use('/api/user/', userRoutes)
+app.use('/api/goals/', goalRoutes)
 
 app.use((req, res, next) => {
   throw new HttpError('Could not find this route', 404)
@@ -26,11 +30,11 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    'mongodb+srv://admin:test123@diplomacluster-khs7e.mongodb.net/landmarks?retryWrites=true&w=majority',
+    'mongodb+srv://admin:test123@diplomacluster-khs7e.mongodb.net/goals?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
     app.listen(5000)
     console.log('server started')
   })
-  .catch(error => console.log(error))
+  .catch((error) => console.log(error))
