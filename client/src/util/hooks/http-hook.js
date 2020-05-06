@@ -17,9 +17,12 @@ const useHttp = () => {
   const activeHttpRequests = useRef([])
 
   // Token interceptor
-  const { token } = JSON.parse(localStorage.getItem('breadCrumbsUserData'))
-  const setTokenCb = createTokenInterceptor(token)
-  axios.interceptors.request.use(setTokenCb, (error) => Promise.reject(error))
+  const userData = localStorage.getItem('breadCrumbsUserData')
+  if (userData) {
+    const { token } = JSON.parse(userData)
+    const setTokenCb = createTokenInterceptor(token)
+    axios.interceptors.request.use(setTokenCb, (error) => Promise.reject(error))
+  }
 
   const request = useCallback(
     async (
