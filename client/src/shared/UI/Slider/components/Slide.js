@@ -1,16 +1,24 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 
-import classes from './Slider.module.scss'
+import classes from '../Slider.module.scss'
+import {
+  CONTENT_FADE_TRANSITION,
+  FADE_TIME,
+} from '../constants/sliderConstants'
 
 const Slide = (props) => {
+  const timeoutRef = useRef()
   const slideRef = useRef()
+  const contentFadeRef = useRef()
   const {
     slide: { src, button, headline, index },
     current,
     handleSlideClick,
   } = props
+
+  // Parallax effect while hovering
 
   const handleMouseMove = (event) => {
     const el = slideRef.current
@@ -34,10 +42,26 @@ const Slide = (props) => {
     handleSlideClick(props.slide.index)
   }
 
+  // Image Loading
+
   const imageLoaded = (event) => {
     const styles = event.target.style
     styles.opacity = 1
   }
+
+  // Content fade in while scrolling slider
+
+  useEffect(() => {
+    clearTimeout(timeoutRef.current)
+    contentFadeRef.current.style.opacity = 0
+    contentFadeRef.current.style.transition = 'none'
+    timeoutRef.current = setTimeout(() => {
+      if (current === index) {
+        contentFadeRef.current.style.transition = CONTENT_FADE_TRANSITION
+        contentFadeRef.current.style.opacity = 1
+      }
+    }, FADE_TIME)
+  }, [current, index])
 
   return (
     <li
@@ -46,9 +70,9 @@ const Slide = (props) => {
       className={classNames(
         classes.slide,
         current === index && classes['slide--current'],
-        (current - 1 === index || current - 2 === index) &&
+        (current - 1 === index || current + 2 === index || index === -1) &&
           classes['slide--previous'],
-        (current + 1 === index || current + 2 === index) &&
+        (current + 1 === index || current - 2 === index || index === 3) &&
           classes['slide--next']
       )}
       onClick={handleSlideClicked}
@@ -64,7 +88,7 @@ const Slide = (props) => {
         />
       </div>
 
-      <article className={classes.slide__content}>
+      <article className={classes.slide__content} ref={contentFadeRef}>
         <h2 className={classes.slide__headline}>{headline}</h2>
         <button
           type="button"

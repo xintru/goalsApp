@@ -3,7 +3,7 @@ import { Typography, Button, Box } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 
 import useStyles from './StartingPage.style'
-import Slider from '../UI/Gallery/Slider'
+import Slider from '../UI/Slider/Slider'
 import { SIGN_UP } from '../../util/constants/routes'
 import { initialSlides } from '../../util/constants/startingPageSlides'
 

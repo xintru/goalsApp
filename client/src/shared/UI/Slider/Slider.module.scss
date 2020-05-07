@@ -1,4 +1,4 @@
- @import url('https://fonts.googleapis.com/css?family=Playfair+Display:700|IBM+Plex+Sans:500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700|IBM+Plex+Sans:500&display=swap');
 
 :root {
   --color-primary: #6b7a8f;
@@ -103,7 +103,7 @@
   display: flex;
   margin: 0 calc(var(--slide-margin) * -1);
   position: absolute;
-  left: calc(var(--slide-size) * -1 - (var(--slide-margin) * 2));
+  left: calc(var(--slide-size) * -2 - (var(--slide-margin) * 4));
   padding: var(--slide-padding);
 }
 
@@ -136,16 +136,12 @@
   }
 
   &--previous {
-    cursor: w-resize;
-
     &:hover {
       transform: translateX(2%);
     }
   }
 
   &--next {
-    cursor: e-resize;
-
     &:hover {
       transform: translateX(-2%);
     }
@@ -159,7 +155,7 @@
 
   opacity: 1;
   pointer-events: auto;
-  user-select: auto;
+  user-select: none;
 
   @media (hover: hover) {
     &:hover .slide__image-wrapper {
@@ -197,7 +193,7 @@
   top: -5%;
   transition: opacity var(--base-duration) var(--base-ease),
     transform var(--base-duration) var(--base-ease);
-  user-select: none;
+  // user-select: none;
   width: 110%;
 
   @media (hover: hover) {
@@ -214,6 +210,7 @@
   font-size: 8vmin;
   font-weight: 600;
   position: relative;
+  user-select: none;
 }
 
 .slide__content {
@@ -226,7 +223,6 @@
   visibility: hidden;
 
   .slide--current & {
-    animation: fade-in calc(var(--base-duration) / 2) var(--base-ease) forwards;
     visibility: visible;
 
     @media (hover: hover) {
@@ -239,18 +235,5 @@
 
   > * + * {
     margin-top: 2rem;
-  }
-}
-
-// =========================
-// Animations
-// =========================
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }

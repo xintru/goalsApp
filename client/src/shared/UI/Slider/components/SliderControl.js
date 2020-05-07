@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import classes from './Slider.module.scss'
+import classes from '../Slider.module.scss'
 
 const SliderControl = (props) => {
   const { type, title, handleClick } = props
