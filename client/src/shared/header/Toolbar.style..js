@@ -14,12 +14,17 @@ const styles = makeStyles((theme) => ({
     flexGrow: 1,
     marginLeft: '2.5rem',
   },
-  username: {
+  userInfo: {
     display: 'flex',
     alignItems: 'center',
 
     '& p': {
       marginRight: '.5rem',
+    },
+  },
+  username: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     },
   },
   menuIcon: {

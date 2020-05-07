@@ -27,7 +27,7 @@ const Signup = () => {
           password: formState.inputs.password.value,
           confirmPassword: formState.inputs.confirmPassword.value,
         },
-        null,
+        {},
         'Signing you up...'
       )
       login(response.token, response.name, response.userId)

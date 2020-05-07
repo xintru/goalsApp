@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100vw',
     overflow: 'hidden',
     minHeight: 'calc(100vh - 64px)',
-    background: theme.palette.whiteBg,
+    background: theme.palette.white.bg,
     [theme.breakpoints.down('sm')]: {
       minHeight: 'calc(100vh - 56px)',
     },
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     background: 'transparent',
     [theme.breakpoints.down('sm')]: {
       minHeight: 'calc(100vh - 56px)',
+      padding: 0,
     },
   },
 }))

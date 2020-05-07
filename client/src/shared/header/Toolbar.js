@@ -61,8 +61,8 @@ const ToolbarComponent = () => {
           </Link>
         </Typography>
         {isLoggedIn && (
-          <div className={classes.username} edge="end">
-            <Typography>{username}</Typography>
+          <div className={classes.userInfo} edge="end">
+            <Typography className={classes.username}>{username}</Typography>
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"

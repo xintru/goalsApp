@@ -2,7 +2,6 @@ import { createMuiTheme } from '@material-ui/core/styles'
 
 const outerTheme = createMuiTheme({
   palette: {
-    whiteBg: '#eee',
     primary: {
       main: '#673AB7',
       textColor: '#212121',
@@ -11,6 +10,10 @@ const outerTheme = createMuiTheme({
       main: '#FF5722',
       textColor: '#757575',
     },
+    white: {
+      main: '#fff',
+      bg: '#eee',
+    }
   },
 })
 
