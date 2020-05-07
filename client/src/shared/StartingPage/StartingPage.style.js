@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     paddingBottom: '1.5rem',
     fontWeight: 700,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem',
+    },
   },
   btn: {
     marginTop: '5rem',

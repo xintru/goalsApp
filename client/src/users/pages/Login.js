@@ -25,7 +25,7 @@ const Login = () => {
         email: formState.inputs.email.value,
         password: formState.inputs.password.value,
       },
-      null,
+      {},
       'Logging in...'
     )
     login(response.token, response.name, response.userId)
