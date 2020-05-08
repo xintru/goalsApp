@@ -9,7 +9,7 @@ import ActiveGoals from '../components/ActiveGoals/ActiveGoals'
 import useStyles from './MainPage.style'
 
 const MainPage = () => {
-  const [user, setUser] = useState({ name: 'username', goals: [] })
+  const [user, setUser] = useState({ name: 'username', goals: [], avatar: '' })
   const classes = useStyles()
   const { isLoading, request } = useContext(HttpContext)
   const { token } = useContext(AuthContext)
@@ -25,13 +25,19 @@ const MainPage = () => {
           title: goal.title,
           description: goal.description,
         })),
+        avatar: response.user.avatar,
       })
     })()
   }, [request, token])
 
   return (
     <div className={classes.root}>
-      <Summary name={user.name} goals={user.goals} isLoading={isLoading} />
+      <Summary
+        name={user.name}
+        goals={user.goals}
+        isLoading={isLoading}
+        avatar={user.avatar}
+      />
       <ActiveGoals goals={user.goals} isLoading={isLoading} />
     </div>
   )

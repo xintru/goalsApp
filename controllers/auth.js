@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const fs = require('fs')
 
 const HttpError = require('../models/http-error')
 const User = require('../models/User')
@@ -44,6 +45,7 @@ exports.signUp = async (req, res, next) => {
     name,
     password: hashedPassword,
     goals: [],
+    avatar: '/uploads/images/default_avatar.png',
   })
 
   try {
@@ -65,7 +67,13 @@ exports.signUp = async (req, res, next) => {
 
   res
     .status(201)
-    .json({ id: newUser.id, name: newUser.name, email: newUser.email, token })
+    .json({
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      avatar: newUser.avatar,
+      token,
+    })
 }
 
 exports.login = async (req, res, next) => {
@@ -108,5 +116,11 @@ exports.login = async (req, res, next) => {
     return next(new HttpError('Logging in failed', 500))
   }
 
-  res.json({ userId: user.id, name: user.name, email: user.email, token })
+  res.json({
+    userId: user.id,
+    name: user.name,
+    email: user.email,
+    avatar: user.avatar,
+    token,
+  })
 }

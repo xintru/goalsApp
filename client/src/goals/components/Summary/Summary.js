@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import {
   Typography,
   Avatar,
@@ -15,13 +14,14 @@ import {
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import AutorenewIcon from '@material-ui/icons/Autorenew'
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder'
+import { DEVELOPMENT_SERVER } from '../../../config/config'
 
 import Loading from '../../../shared/UI/Loading/Loading'
 
 import useStyles from './Summary.style'
 
 const Summary = (props) => {
-  const { name, goals, isLoading } = props
+  const { name, goals, avatar, isLoading } = props
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -30,7 +30,11 @@ const Summary = (props) => {
       ) : (
         <>
           <div className={classes.userInfo}>
-            <Avatar alt="Avatar" src="1.jpg" className={classes.avatar} />
+            <Avatar
+              alt={name}
+              src={avatar ? DEVELOPMENT_SERVER + avatar : ''}
+              className={classes.avatar}
+            />
             <Typography variant="h6" className={classes.username}>
               {name}
             </Typography>
@@ -90,6 +94,7 @@ const Summary = (props) => {
 
 Summary.propTypes = {
   name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
   goals: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,

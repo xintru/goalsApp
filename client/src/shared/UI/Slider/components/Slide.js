@@ -18,6 +18,8 @@ const Slide = (props) => {
     handleSlideClick,
   } = props
 
+  useEffect(() => () => clearTimeout(timeoutRef.current), [])
+
   // Parallax effect while hovering
 
   const handleMouseMove = (event) => {

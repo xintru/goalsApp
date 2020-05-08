@@ -20,7 +20,7 @@ const userSchema = new Schema({
     required: true,
     minLength: 6,
   },
-  image: {
+  avatar: {
     type: String,
   },
   goals: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Goal' }],

@@ -21,11 +21,18 @@ const Slider = (props) => {
   const [sliding, setSliding] = useState(false)
   const [direction, setDirection] = useState(0)
   const [slides, setSlides] = useState(initialSlides)
-
   const slidingTimeout = useRef(null)
   const slidingInterval = useRef(null)
 
   // Functions that work with slides array, basically they are used to control slides
+
+  useEffect(
+    () => () => {
+      clearTimeout(slidingTimeout.current)
+      clearInterval(slidingInterval.current)
+    },
+    []
+  )
 
   const handleNext = useCallback(() => {
     if (slidingTimeout.current) {

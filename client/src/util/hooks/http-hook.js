@@ -1,7 +1,12 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import axios from 'axios'
 
-const createTokenInterceptor = (token) => (request) => {
+const createTokenInterceptor = (request) => {
+  const userData = localStorage.getItem('breadCrumbsUserData')
+  let token
+  if (userData) {
+    token = JSON.parse(userData).token
+  }
   if (token) {
     request.headers.Authorization = `Bearer ${token}`
   } else {
@@ -17,12 +22,10 @@ const useHttp = () => {
   const activeHttpRequests = useRef([])
 
   // Token interceptor
-  const userData = localStorage.getItem('breadCrumbsUserData')
-  if (userData) {
-    const { token } = JSON.parse(userData)
-    const setTokenCb = createTokenInterceptor(token)
-    axios.interceptors.request.use(setTokenCb, (error) => Promise.reject(error))
-  }
+
+  axios.interceptors.request.use(createTokenInterceptor, (error) =>
+    Promise.reject(error)
+  )
 
   const request = useCallback(
     async (

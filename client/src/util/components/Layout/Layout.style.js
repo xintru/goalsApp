@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100vw',
     overflow: 'hidden',
     minHeight: 'calc(100vh - 64px)',
     background: theme.palette.white.bg,
