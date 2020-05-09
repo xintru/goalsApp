@@ -15,4 +15,16 @@ router.post(
   goalControllers.postGoal
 )
 
+router.patch(
+  '/:goalId',
+  checkAuth,
+  [
+    check('title').not().isEmpty().isString(),
+    check('description').not().isEmpty().isString(),
+  ],
+  goalControllers.patchGoal
+)
+
+router.delete('/:goalId', checkAuth, goalControllers.deleteGoal)
+
 module.exports = router
