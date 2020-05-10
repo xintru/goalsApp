@@ -1,3 +1,4 @@
+const fs = require('fs')
 const HttpError = require('../models/http-error')
 const User = require('../models/User')
 
@@ -40,6 +41,12 @@ exports.patchUserAvatar = async (req, res, next) => {
 
   if (!user) {
     return next(new HttpError('There is no such user with this id', 404))
+  }
+
+  if (user.avatar !== '/uploads/images/default_avatar.png') {
+    fs.unlink(user.avatar, () => {
+      console.log('Could not remove old user avatar.')
+    })
   }
 
   try {

@@ -8,12 +8,13 @@ import {
   MenuItem,
   Button,
   Box,
+  Avatar,
 } from '@material-ui/core'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 import { NavLink, Link } from 'react-router-dom'
 import MenuIcon from '@material-ui/icons/Menu'
-import AccountCircle from '@material-ui/icons/AccountCircle'
+// import AccountCircle from '@material-ui/icons/AccountCircle'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 
 import Drawer from '../drawer/Drawer'
@@ -25,7 +26,7 @@ import { MAIN_PAGE, STARTING_PAGE } from '../../util/constants/routes'
 const ToolbarComponent = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const { isLoggedIn, username, logout } = useContext(AuthContext)
+  const { isLoggedIn, username, userAvatar, logout } = useContext(AuthContext)
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
@@ -70,7 +71,7 @@ const ToolbarComponent = () => {
               color="inherit"
               onClick={handleOpenMenu}
             >
-              <AccountCircle />
+              <Avatar src={userAvatar} alt={username} />
             </IconButton>
             <Menu
               id="menu-appbar"

@@ -7,8 +7,9 @@ const useAuth = () => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState()
   const [userId, setUserId] = useState()
   const [username, setUsername] = useState()
+  const [userAvatar, setUserAvatar] = useState()
 
-  const login = useCallback((newToken, name, uid, expDate) => {
+  const login = useCallback((newToken, name, uid, avatar, expDate) => {
     setToken(newToken)
     const expirationDate =
       expDate || new Date(new Date().getTime() + 1000 * 3600)
@@ -20,8 +21,10 @@ const useAuth = () => {
         username: name,
         token: newToken,
         expiration: expirationDate.toISOString(),
+        avatar,
       })
     )
+    setUserAvatar(avatar)
     setUsername(name)
     setUserId(uid)
   }, [])
@@ -45,6 +48,7 @@ const useAuth = () => {
         storedData.token,
         storedData.username,
         storedData.userId,
+        storedData.avatar,
         new Date(storedData.expiration)
       )
     }
@@ -63,6 +67,7 @@ const useAuth = () => {
     token,
     userId,
     username,
+    userAvatar,
     login,
     logout,
   }

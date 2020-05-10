@@ -23,11 +23,11 @@ import MainPage from './goals/pages/MainPage'
 import StartingPage from './shared/StartingPage/StartingPage'
 import Signup from './users/pages/Signup'
 import Login from './users/pages/Login'
-import Layout from './util/components/Layout/Layout'
+import Layout from './shared/layout/Layout'
 import theme from './util/theme/theme'
 
 const App = () => {
-  const { token, login, logout, username } = useAuth()
+  const { token, login, logout, username, userAvatar } = useAuth()
   const {
     isLoading,
     loadingMessage,
@@ -37,7 +37,14 @@ const App = () => {
   } = useHttp()
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: !!token, username, token, login, logout }}
+      value={{
+        isLoggedIn: !!token,
+        username,
+        userAvatar,
+        token,
+        login,
+        logout,
+      }}
     >
       <HttpContext.Provider
         value={{ isLoading, loadingMessage, errorMessage, request, clearError }}

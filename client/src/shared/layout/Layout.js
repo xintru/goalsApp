@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { Container, Snackbar, CircularProgress } from '@material-ui/core'
 
-import { HttpContext } from '../../context/http-context'
+import { HttpContext } from '../../util/context/http-context'
 import useStyles from './Layout.style'
 
 const Layout = (props) => {
@@ -23,7 +23,7 @@ const Layout = (props) => {
       message={loadingMessage || errorMessage}
       autoHideDuration={10000}
       onClose={clearError}
-      action={isLoading && <CircularProgress size={20} />}
+      action={isLoading && <CircularProgress size={20} color="secondary" />}
     />
   )
 
