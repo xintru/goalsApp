@@ -1,19 +1,47 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useReducer } from 'react'
+import * as type from '../constants/actions/auth'
 
 let logoutTimer
+const initialState = {
+  token: '',
+  tokenExpirationDate: '',
+  userId: '',
+  username: '',
+  userAvatar: '',
+}
+
+const authReducer = (state, action) => {
+  switch (action.type) {
+    case type.SET_AUTH_STATE:
+      return {
+        ...state,
+        token: action.token,
+        userId: action.userId,
+        username: action.username,
+        userAvatar: action.avatar,
+      }
+    case type.SET_EXP_DATE:
+      return {
+        ...state,
+        tokenExpirationDate: action.expDate,
+      }
+    case type.RESET_AUTH_STATE:
+      return initialState
+    default:
+      return state
+  }
+}
 
 const useAuth = () => {
-  const [token, setToken] = useState()
-  const [tokenExpirationDate, setTokenExpirationDate] = useState()
-  const [userId, setUserId] = useState()
-  const [username, setUsername] = useState()
-  const [userAvatar, setUserAvatar] = useState()
+  const [authState, dispatch] = useReducer(authReducer, initialState)
 
   const login = useCallback((newToken, name, uid, avatar, expDate) => {
-    setToken(newToken)
     const expirationDate =
       expDate || new Date(new Date().getTime() + 1000 * 3600)
-    setTokenExpirationDate(expirationDate)
+    dispatch({
+      type: type.SET_EXP_DATE,
+      expDate: expirationDate,
+    })
     localStorage.setItem(
       'breadCrumbsUserData',
       JSON.stringify({
@@ -24,16 +52,19 @@ const useAuth = () => {
         avatar,
       })
     )
-    setUserAvatar(avatar)
-    setUsername(name)
-    setUserId(uid)
+    dispatch({
+      type: type.SET_AUTH_STATE,
+      token: newToken,
+      userId: uid,
+      username: name,
+      avatar,
+    })
   }, [])
 
   const logout = useCallback(() => {
-    setToken(null)
-    setTokenExpirationDate(null)
-    setUserId(null)
-    setUsername(null)
+    dispatch({
+      type: type.RESET_AUTH_STATE,
+    })
     localStorage.removeItem('breadCrumbsUserData')
   }, [])
 
@@ -55,19 +86,17 @@ const useAuth = () => {
   }, [login])
 
   useEffect(() => {
-    if (token && tokenExpirationDate) {
-      const remainingTime = tokenExpirationDate.getTime() - new Date().getTime()
+    if (authState.token && authState.tokenExpirationDate) {
+      const remainingTime =
+        authState.tokenExpirationDate.getTime() - new Date().getTime()
       logoutTimer = setTimeout(logout, remainingTime)
     } else {
       clearTimeout(logoutTimer)
     }
-  }, [token, logout, tokenExpirationDate])
+  }, [authState.token, logout, authState.tokenExpirationDate])
 
   return {
-    token,
-    userId,
-    username,
-    userAvatar,
+    ...authState,
     login,
     logout,
   }

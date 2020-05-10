@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import signupInputs from '../inputs/signup'
 import useStyles from '../pages/Login.style'
-import { formState as formStateType } from '../../util/customPropTypes/formPropTypes'
+import { signupFormState } from '../../util/customPropTypes/formPropTypes'
 
 const SignUpForm = (props) => {
   const classes = useStyles()
@@ -56,7 +56,7 @@ const SignUpForm = (props) => {
 }
 
 SignUpForm.propTypes = {
-  formState: formStateType.isRequired,
+  formState: signupFormState.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onInputHandler: PropTypes.func.isRequired,
 }

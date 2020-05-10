@@ -13,7 +13,7 @@ const outerTheme = createMuiTheme({
     white: {
       main: '#fff',
       bg: '#eee',
-    }
+    },
   },
 })
 

@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import { HttpContext } from '../../util/context/http-context'
-import { AuthContext } from '../../util/context/auth-context'
+import { UserContext } from '../../util/context/user-context'
 
 import Summary from '../components/Summary/Summary'
 import ActiveGoals from '../components/ActiveGoals/ActiveGoals'
@@ -9,26 +9,9 @@ import ActiveGoals from '../components/ActiveGoals/ActiveGoals'
 import useStyles from './MainPage.style'
 
 const MainPage = () => {
-  const [user, setUser] = useState({ name: 'username', goals: [], avatar: '' })
   const classes = useStyles()
-  const { isLoading, request } = useContext(HttpContext)
-  const { token } = useContext(AuthContext)
-
-  useEffect(() => {
-    ;(async () => {
-      const response = await request('/api/user', 'GET', null, {
-        Authorization: `Bearer ${token}`,
-      })
-      setUser({
-        name: response.user.name,
-        goals: response.user.goals.map((goal) => ({
-          title: goal.title,
-          description: goal.description,
-        })),
-        avatar: response.user.avatar,
-      })
-    })()
-  }, [request, token])
+  const { isLoading } = useContext(HttpContext)
+  const { user } = useContext(UserContext)
 
   return (
     <div className={classes.root}>

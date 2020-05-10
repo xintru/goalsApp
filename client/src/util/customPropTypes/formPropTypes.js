@@ -5,12 +5,22 @@ export const formInput = PropTypes.shape({
   isValid: PropTypes.bool.isRequired,
   touched: PropTypes.bool.isRequired,
   validators: PropTypes.arrayOf(PropTypes.func).isRequired,
-}).isRequired
+})
 
-export const formState = PropTypes.shape({
+export const loginFormState = PropTypes.shape({
   inputs: PropTypes.shape({
-    title: formInput,
-    description: formInput,
+    email: formInput,
+    password: formInput,
   }).isRequired,
   formIsValid: PropTypes.bool.isRequired,
-}).isRequired
+})
+
+export const signupFormState = PropTypes.shape({
+  inputs: PropTypes.shape({
+    username: formInput,
+    email: formInput,
+    password: formInput,
+    confimPassword: formInput,
+  }).isRequired,
+  formIsValid: PropTypes.bool.isRequired,
+})
