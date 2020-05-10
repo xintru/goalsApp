@@ -15,6 +15,8 @@ router.post(
   goalControllers.postGoal
 )
 
+router.get('/:goalId', checkAuth, goalControllers.getGoal)
+
 router.patch(
   '/:goalId',
   checkAuth,

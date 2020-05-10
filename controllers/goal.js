@@ -41,6 +41,22 @@ exports.postGoal = async (req, res, next) => {
   return res.status(201).json(newGoal)
 }
 
+exports.getGoal = async (req, res, next) => {
+  const { goalId } = req.params
+  let goal
+  try {
+    goal = await Goal.findById(goalId)
+  } catch (error) {
+    return next(new HttpError('Something went wrong', 500))
+  }
+
+  if (!goal) {
+    return next(new HttpError('There is no such goal', 404))
+  }
+
+  res.status(200).json({ goal: goal.toObject({ getters: true }) })
+}
+
 exports.patchGoal = async (req, res, next) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -95,7 +111,7 @@ exports.deleteGoal = async (req, res, next) => {
   }
 
   if (goal.creator.id.toString() !== userId) {
-    return next(new HttpError('You are not allowed to delete this place.', 401))
+    return next(new HttpError('You are not allowed to delete this goal.', 401))
   }
 
   try {
