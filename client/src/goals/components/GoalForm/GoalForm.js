@@ -6,7 +6,7 @@ import goalInputs from './inputs/goalInputs'
 import useStyles from './GoalForm.style'
 
 const GoalForm = (props) => {
-  const { formState, onInputHandler, onSubmit } = props
+  const { formState, onInputHandler, onSubmit, newGoal } = props
   const classes = useStyles()
   return (
     <form
@@ -15,7 +15,9 @@ const GoalForm = (props) => {
       className={classes.root}
       onSubmit={onSubmit}
     >
-      <Typography variant="h5">Задать новую цель:</Typography>
+      <Typography variant="h5">
+        {newGoal ? 'Задать новую цель:' : 'Изменить старую цель'}
+      </Typography>
       {goalInputs.map((input) => (
         <TextField
           className={classes.textField}
@@ -49,7 +51,7 @@ const GoalForm = (props) => {
         variant="contained"
         color="secondary"
       >
-        Добавить
+        {newGoal ? 'Добавить' : 'Изменить'}
       </Button>
     </form>
   )
@@ -75,6 +77,7 @@ GoalForm.propTypes = {
   }).isRequired,
   onInputHandler: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  newGoal: PropTypes.bool.isRequired,
 }
 
 export default GoalForm

@@ -26,6 +26,8 @@ const ActiveGoals = (props) => {
   const classes = useStyles()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
+  // NEEDS HUGE REFACTORING
   return (
     <div className={classes.root}>
       <div className={classes.goalsBar}>
@@ -67,24 +69,27 @@ const ActiveGoals = (props) => {
                       root: classes.progress,
                     }}
                   />
-                  {isMobile ? (
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      className={classes.btn}
-                    >
-                      <InfoIcon />
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      href="#more"
-                      className={classes.btn}
-                    >
-                      Подробнее
-                    </Button>
-                  )}
+                  <Link to={`/goal/${goal.id}`}>
+                    {isMobile ? (
+                      <Button
+                        type="button"
+                        variant="outlined"
+                        color="primary"
+                        className={classes.btn}
+                      >
+                        <InfoIcon />
+                      </Button>
+                    ) : (
+                      <Button
+                        type="button"
+                        variant="outlined"
+                        color="primary"
+                        className={classes.btn}
+                      >
+                        Подробнее
+                      </Button>
+                    )}
+                  </Link>
                 </ListItem>
                 <Divider />
               </React.Fragment>

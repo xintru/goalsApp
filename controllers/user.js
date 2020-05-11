@@ -23,7 +23,7 @@ exports.getUser = async (req, res, next) => {
     user: {
       name: user.name,
       email: user.email,
-      goals: user.goals,
+      goals: user.goals.map((goal) => goal.toObject({ getters: true })),
       avatar: user.avatar,
     },
   })

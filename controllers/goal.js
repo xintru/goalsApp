@@ -91,7 +91,7 @@ exports.patchGoal = async (req, res, next) => {
     return next(new HttpError('Something went wrong.', 500))
   }
 
-  res.status(200).json({ goal: existingGoal.toObject({ getters: true }) })
+  res.status(200).json(existingGoal.toObject({ getters: true }))
 }
 
 exports.deleteGoal = async (req, res, next) => {
@@ -127,5 +127,5 @@ exports.deleteGoal = async (req, res, next) => {
     )
   }
 
-  res.status(200).json({ message: 'Deleted place' })
+  res.status(200).json(goal.toObject({ getters: true }))
 }
