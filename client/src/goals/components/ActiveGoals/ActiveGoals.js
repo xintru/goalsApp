@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import {
   Typography,
@@ -18,6 +19,7 @@ import InfoIcon from '@material-ui/icons/Info'
 import Loading from '../../../shared/UI/Loading/Loading'
 
 import useStyles from './ActiveGoals.style'
+import { NEW_GOAL } from '../../../util/constants/routes'
 
 const ActiveGoals = (props) => {
   const { goals, isLoading } = props
@@ -30,57 +32,66 @@ const ActiveGoals = (props) => {
         <Typography variant="h6" className={classes.title}>
           Активные цели:
         </Typography>
-        <Button
-          variant="contained"
-          color="secondary"
-          startIcon={isMobile ? null : <AddIcon />}
-        >
-          {isMobile ? <AddIcon /> : 'Добавить цель'}
-        </Button>
+        <Link to={NEW_GOAL}>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={isMobile ? null : <AddIcon />}
+          >
+            {isMobile ? <AddIcon /> : 'Добавить цель'}
+          </Button>
+        </Link>
       </div>
-      <List className={classes.goalsList}>
-        {isLoading ? (
-          <Loading centerVertically />
-        ) : (
-          goals.map((goal, i) => (
-            <React.Fragment key={`goal_list${i + 1}`}>
-              <ListItem className={classes.goal}>
-                <ListItemText
-                  primary={goal.title}
-                  secondary={isMobile ? null : goal.description}
-                />
-                <LinearProgress
-                  variant="determinate"
-                  value={20}
-                  color="secondary"
-                  classes={{
-                    root: classes.progress,
-                  }}
-                />
-                {isMobile ? (
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.btn}
-                  >
-                    <InfoIcon />
-                  </Button>
-                ) : (
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    href="#more"
-                    className={classes.btn}
-                  >
-                    Подробнее
-                  </Button>
-                )}
-              </ListItem>
-              <Divider />
-            </React.Fragment>
-          ))
-        )}
-      </List>
+      {goals.length === 0 ? (
+        <Typography className={classes.noGoals}>
+          У вас нет активных целей
+        </Typography>
+      ) : (
+        <List className={classes.goalsList}>
+          {isLoading ? (
+            <Loading centerVertically />
+          ) : (
+            goals.map((goal, i) => (
+              <React.Fragment key={`goal_list${i + 1}`}>
+                <ListItem className={classes.goal}>
+                  <ListItemText
+                    classes={{ root: classes.goalInfo }}
+                    primary={goal.title}
+                    secondary={isMobile ? null : goal.description}
+                  />
+                  <LinearProgress
+                    variant="determinate"
+                    value={20}
+                    color="secondary"
+                    classes={{
+                      root: classes.progress,
+                    }}
+                  />
+                  {isMobile ? (
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      className={classes.btn}
+                    >
+                      <InfoIcon />
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      href="#more"
+                      className={classes.btn}
+                    >
+                      Подробнее
+                    </Button>
+                  )}
+                </ListItem>
+                <Divider />
+              </React.Fragment>
+            ))
+          )}
+        </List>
+      )}
     </div>
   )
 }

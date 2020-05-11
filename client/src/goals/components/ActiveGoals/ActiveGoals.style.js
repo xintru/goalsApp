@@ -33,14 +33,30 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  goalInfo: {
+    flex: 0,
+    minWidth: 330,
+    marginRight: '2rem',
+    [theme.breakpoints.down('sm')]: {
+      minWidth: 130,
+      marginRight: '1rem',
+      // overflow: 'hidden',
+      // whiteSpace: 'nowrap',
+      // textOverflow: 'ellipsis',
+    },
+  },
   progress: {
-    flex: 3,
+    flex: 2,
   },
   btn: {
-    marginLeft: '3rem',
+    marginLeft: '2rem',
     [theme.breakpoints.down('sm')]: {
       marginLeft: '1rem',
     },
+  },
+  noGoals: {
+    marginTop: '2rem',
+    textAlign: 'center',
   },
 }))
 
