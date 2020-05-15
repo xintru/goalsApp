@@ -16,6 +16,7 @@ const noop = () => {}
 export const UserContext = createContext({
   ...initialState,
   setUser: noop,
+  updateAvatar: noop,
   addGoal: noop,
   updateGoal: noop,
   deleteGoal: noop,
@@ -24,7 +25,7 @@ export const UserContext = createContext({
 const UserStore = (props) => {
   const { children } = props
   const { request } = useContext(HttpContext)
-  const { token } = useContext(AuthContext)
+  const { token, updateAuthAvatar } = useContext(AuthContext)
   const [userState, dispatch] = useReducer(userReducer, initialState)
 
   const setUser = useCallback(async () => {
@@ -39,6 +40,23 @@ const UserStore = (props) => {
     )
     dispatch({ type: type.SET_USER, user: response.user })
   }, [request, dispatch, token])
+
+  const updateAvatar = useCallback(
+    async (image) => {
+      const form = new FormData()
+      form.append('image', image)
+      const response = await request(
+        '/api/user',
+        'PATCH',
+        form,
+        {},
+        'Updating avatar...'
+      )
+      updateAuthAvatar(response.user.avatar)
+      dispatch({ type: type.UPDATE_AVATAR, avatar: response.user.avatar })
+    },
+    [request, updateAuthAvatar]
+  )
 
   const addGoal = useCallback(
     async (newGoal) => {
@@ -94,6 +112,7 @@ const UserStore = (props) => {
         addGoal,
         updateGoal,
         deleteGoal,
+        updateAvatar,
       }}
     >
       {children}

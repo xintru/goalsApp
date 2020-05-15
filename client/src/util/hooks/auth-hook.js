@@ -27,6 +27,12 @@ const authReducer = (state, action) => {
       }
     case type.RESET_AUTH_STATE:
       return initialState
+    case type.UPDATE_AVATAR: {
+      return {
+        ...state,
+        userAvatar: action.avatar,
+      }
+    }
     default:
       return state
   }
@@ -34,6 +40,17 @@ const authReducer = (state, action) => {
 
 const useAuth = () => {
   const [authState, dispatch] = useReducer(authReducer, initialState)
+
+  const updateAvatar = useCallback(
+    (avatar) => {
+      const data = localStorage.getItem('breadCrumbsUserData')
+      const userData = JSON.parse(data)
+      userData.avatar = avatar
+      localStorage.setItem('breadCrumbsUserData', JSON.stringify(userData))
+      dispatch({ type: type.UPDATE_AVATAR, avatar })
+    },
+    [dispatch]
+  )
 
   const login = useCallback((newToken, name, uid, avatar, expDate) => {
     const expirationDate =
@@ -99,6 +116,7 @@ const useAuth = () => {
     ...authState,
     login,
     logout,
+    updateAvatar,
   }
 }
 

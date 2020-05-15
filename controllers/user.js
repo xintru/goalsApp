@@ -31,10 +31,10 @@ exports.getUser = async (req, res, next) => {
 
 exports.patchUserAvatar = async (req, res, next) => {
   const userId = req.userData.userId
-
+  console.log(userId)
   let user
   try {
-    user = await User.findOne(userId)
+    user = await User.findById(userId)
   } catch (error) {
     return next(new HttpError('Something went wrong finding the user', 500))
   }
@@ -48,9 +48,8 @@ exports.patchUserAvatar = async (req, res, next) => {
       console.log('Could not remove old user avatar.')
     })
   }
-
   try {
-    user.avatar = req.file.path
+    user.avatar = `/${req.file.path.replace(/\\/g, '/')}`
     await user.save()
   } catch (error) {
     return next(
