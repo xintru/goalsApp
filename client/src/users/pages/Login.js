@@ -27,7 +27,7 @@ const Login = () => {
           password: formState.inputs.password.value,
         },
         {},
-        'Logging in...'
+        'Вход выполняется...'
       )
       login(response.token, response.name, response.userId, response.avatar)
       history.push('/')

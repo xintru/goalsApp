@@ -36,7 +36,7 @@ const UserStore = (props) => {
       {
         Authorization: `Bearer ${token}`,
       },
-      'Getting your data...'
+      'Получение данных...'
     )
     dispatch({ type: type.SET_USER, user: response.user })
   }, [request, dispatch, token])
@@ -50,7 +50,7 @@ const UserStore = (props) => {
         'PATCH',
         form,
         {},
-        'Updating avatar...'
+        'Обновление аватара...'
       )
       updateAuthAvatar(response.user.avatar)
       dispatch({ type: type.UPDATE_AVATAR, avatar: response.user.avatar })
@@ -65,7 +65,7 @@ const UserStore = (props) => {
         'POST',
         newGoal,
         {},
-        'Adding a goal...'
+        'Добавление цели...'
       )
       dispatch({ type: type.ADD_GOAL, newGoal: addedGoal })
     },
@@ -79,7 +79,7 @@ const UserStore = (props) => {
         'PATCH',
         changedGoal,
         {},
-        'Updating a goal...'
+        'Обновление цели...'
       )
       dispatch({ type: type.UPDATE_GOAL, updatedGoal })
     },
@@ -93,7 +93,7 @@ const UserStore = (props) => {
         'DELETE',
         null,
         {},
-        'Deleting a goal...'
+        'Удаление цели...'
       )
       dispatch({ type: type.DELETE_GOAL, deletedGoal })
     },

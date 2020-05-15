@@ -32,11 +32,13 @@ const styles = makeStyles((theme) => ({
   },
   authButton: {
     color: '#eee',
-    paddingTop: '10px',
+    paddingTop: '20px',
+    boxSizing: 'border-bottom',
+    paddingBottom: 18,
     margin: '0 5px',
   },
   activeNavLink: {
-    borderBottom: '2px solid #FF5722',
+    borderBottom: `2px solid ${theme.palette.secondary.main}`,
   },
 }))
 

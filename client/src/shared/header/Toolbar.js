@@ -94,7 +94,7 @@ const ToolbarComponent = () => {
                   handleCloseMenu()
                 }}
               >
-                Logout
+                Выход
                 <ExitToApp className={classes.menuIcon} />
               </MenuItem>
             </Menu>
@@ -102,17 +102,13 @@ const ToolbarComponent = () => {
         )}
         {!isLoggedIn && (
           <>
-            <Button className={classes.authButton}>
-              <NavLink to="/login" activeClassName={classes.activeNavLink}>
-                Login
-              </NavLink>
-            </Button>
+            <NavLink to="/login" activeClassName={classes.activeNavLink}>
+              <Button className={classes.authButton}>Вход</Button>
+            </NavLink>
             {!isMobile && (
-              <Button className={classes.authButton}>
-                <NavLink to="/sign_up" activeClassName={classes.activeNavLink}>
-                  Sign Up
-                </NavLink>
-              </Button>
+              <NavLink to="/sign_up" activeClassName={classes.activeNavLink}>
+                <Button className={classes.authButton}>Регистрация</Button>
+              </NavLink>
             )}
           </>
         )}

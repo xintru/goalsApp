@@ -29,7 +29,7 @@ const Signup = () => {
           confirmPassword: formState.inputs.confirmPassword.value,
         },
         {},
-        'Signing you up...'
+        'Регистрация выполняется...'
       )
       login(response.token, response.name, response.userId, response.avatar)
       history.push('/')

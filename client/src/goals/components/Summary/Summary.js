@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Typography,
-  Avatar,
   Grid,
   List,
   ListItem,
@@ -14,9 +13,9 @@ import {
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import AutorenewIcon from '@material-ui/icons/Autorenew'
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder'
-import { DEVELOPMENT_SERVER } from '../../../config/config'
 
 import Loading from '../../../shared/UI/Loading/Loading'
+import AvatarComponent from '../../../shared/UI/AvatarComponent/AvatarComponent'
 
 import useStyles from './Summary.style'
 
@@ -30,11 +29,7 @@ const Summary = (props) => {
       ) : (
         <>
           <div className={classes.userInfo}>
-            <Avatar
-              alt={name}
-              src={avatar ? DEVELOPMENT_SERVER + avatar : ''}
-              className={classes.avatar}
-            />
+            <AvatarComponent name={name} avatar={avatar} />
             <Typography variant="h6" className={classes.username}>
               {name}
             </Typography>
