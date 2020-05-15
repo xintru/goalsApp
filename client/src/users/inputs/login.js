@@ -4,14 +4,14 @@ const loginInputs = [
   {
     id: 'email',
     label: 'Email',
-    errorHint: 'Email is required.',
+    errorHint: 'Обязательное поле.',
     validators: [required, email],
     type: 'text',
   },
   {
     id: 'password',
-    label: 'Password',
-    errorHint: 'Must be at least 6 characters long.',
+    label: 'Пароль',
+    errorHint: 'Длина пароля - 6 символов минимум.',
     validators: [required, length({ min: 6 })],
     type: 'password',
   },

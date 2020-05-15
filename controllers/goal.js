@@ -38,7 +38,7 @@ exports.postGoal = async (req, res, next) => {
   } catch (error) {
     return next(new HttpError('Something went wrong', 500))
   }
-  return res.status(201).json(newGoal)
+  return res.status(201).json(newGoal.toObject({ getters: true }))
 }
 
 exports.getGoal = async (req, res, next) => {

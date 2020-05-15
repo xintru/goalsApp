@@ -12,11 +12,12 @@ export const AuthContext = createContext({
   userAvatar: '',
   login: noop,
   logout: noop,
+  updateAuthAvatar: noop,
 })
 
 const AuthStore = (props) => {
   const { children } = props
-  const { username, token, userAvatar, login, logout } = useAuth()
+  const { username, token, userAvatar, login, logout, updateAvatar } = useAuth()
   return (
     <AuthContext.Provider
       value={{
@@ -26,6 +27,7 @@ const AuthStore = (props) => {
         token,
         login,
         logout,
+        updateAuthAvatar: updateAvatar,
       }}
     >
       {children}

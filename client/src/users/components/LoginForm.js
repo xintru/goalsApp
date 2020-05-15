@@ -18,7 +18,7 @@ const LoginForm = (props) => {
       noValidate
       autoComplete="no"
     >
-      <Typography variant="h5">Login</Typography>
+      <Typography variant="h5">Вход</Typography>
       {loginInputs.map((input) => (
         <TextField
           className={classes.textField}
@@ -45,7 +45,7 @@ const LoginForm = (props) => {
         />
       ))}
       <Typography className={classes.link}>
-        <Link to={SIGN_UP}>Don&apos;t have an account yet?</Link>
+        <Link to={SIGN_UP}>Еще нет аккаунта?</Link>
       </Typography>
       <Button
         disabled={!formState.formIsValid}
@@ -54,7 +54,7 @@ const LoginForm = (props) => {
         variant="contained"
         className={classes.submitButton}
       >
-        Submit
+        Войти
       </Button>
     </form>
   )

@@ -24,6 +24,15 @@ export const userReducer = (state, action) => {
           goals: [...state.user.goals, action.newGoal],
         },
       }
+    case type.UPDATE_AVATAR: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          avatar: action.avatar,
+        },
+      }
+    }
     case type.UPDATE_GOAL:
       return updateGoal({ ...state }, { ...action })
     case type.DELETE_GOAL:

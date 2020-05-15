@@ -13,7 +13,7 @@ const app = express()
 
 app.use(bodyParser.json())
 
-app.use('/uploads/images', express.static(path.join('uploads', 'images')))
+app.use('/uploads/images', express.static(path.join(__dirname, 'uploads', 'images')))
 
 app.use('/api/auth/', authRoutes)
 app.use('/api/user/', userRoutes)
@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
   if (req.file) {
     fs.unlink(req.file.path, (error) => {
-      console.log(error)
+      console.log('log', error)
     })
   }
   if (res.headerSent) {

@@ -3,7 +3,7 @@ import { Typography, Button, TextField } from '@material-ui/core'
 import PropTypes from 'prop-types'
 
 import signupInputs from '../inputs/signup'
-import useStyles from '../pages/Login.style'
+import useStyles from '../pages/Signup.style'
 import { signupFormState } from '../../util/customPropTypes/formPropTypes'
 
 const SignUpForm = (props) => {
@@ -16,7 +16,7 @@ const SignUpForm = (props) => {
       noValidate
       autoComplete="no"
     >
-      <Typography variant="h5">SignUp</Typography>
+      <Typography variant="h5">Заполните форму регистрации</Typography>
       {signupInputs.map((input) => (
         <TextField
           className={classes.textField}
@@ -49,7 +49,7 @@ const SignUpForm = (props) => {
         variant="contained"
         className={classes.submitButton}
       >
-        Submit
+        Зарегистрироваться
       </Button>
     </form>
   )
