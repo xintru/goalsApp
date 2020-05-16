@@ -1,20 +1,15 @@
 import React from 'react'
-import { TextField, Typography, Button } from '@material-ui/core'
+import { TextField, Typography } from '@material-ui/core'
 import PropTypes from 'prop-types'
 
 import goalInputs from './inputs/goalInputs'
 import useStyles from './GoalForm.style'
 
 const GoalForm = (props) => {
-  const { formState, onInputHandler, onSubmit, newGoal } = props
+  const { formState, onInputHandler, newGoal } = props
   const classes = useStyles()
   return (
-    <form
-      noValidate
-      autoComplete="off"
-      className={classes.root}
-      onSubmit={onSubmit}
-    >
+    <div className={classes.root}>
       <Typography variant="h5">
         {newGoal ? 'Задать новую цель:' : 'Изменить старую цель'}
       </Typography>
@@ -45,15 +40,7 @@ const GoalForm = (props) => {
           value={formState.inputs[input.id].value}
         />
       ))}
-      <Button
-        type="submit"
-        disabled={!formState.formIsValid}
-        variant="contained"
-        color="secondary"
-      >
-        {newGoal ? 'Добавить' : 'Изменить'}
-      </Button>
-    </form>
+    </div>
   )
 }
 
@@ -76,7 +63,6 @@ GoalForm.propTypes = {
     formIsValid: PropTypes.bool.isRequired,
   }).isRequired,
   onInputHandler: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   newGoal: PropTypes.bool.isRequired,
 }
 

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -8,11 +8,14 @@ const useStyles = makeStyles(() => ({
     height: 'calc(100vh - 64px)',
   },
   card: {
-    width: '20vw',
-    minWidth: 300,
+    width: '40vw',
+    minWidth: 500,
     minHeight: '20rem',
     padding: '2rem',
     boxSizing: 'border-box',
+    [theme.breakpoints.down('sm')]: {
+      minWidth: 300,
+    },
   },
 }))
 

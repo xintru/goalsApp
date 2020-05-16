@@ -31,7 +31,6 @@ exports.getUser = async (req, res, next) => {
 
 exports.patchUserAvatar = async (req, res, next) => {
   const userId = req.userData.userId
-  console.log(userId)
   let user
   try {
     user = await User.findById(userId)

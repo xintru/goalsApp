@@ -3,7 +3,7 @@ import { Typography, Button, Paper } from '@material-ui/core'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import { UserContext } from '../../../util/context/user-context'
 import useStyles from './Goal.style'
