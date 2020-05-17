@@ -9,7 +9,7 @@ exports.getUser = async (req, res, next) => {
   try {
     user = await User.findById(userId, '-password').populate({
       path: 'goals',
-      select: ['title', 'description'],
+      select: ['title', 'description', 'date', 'subgoals'],
     })
   } catch (error) {
     return next(new HttpError('Something went wrong finding the user', 500))

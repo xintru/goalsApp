@@ -13,6 +13,16 @@ const goalSchema = new Schema({
     type: String,
     required: true,
   },
+  date: {
+    type: String,
+    required: true,
+  },
+  subgoals: [
+    {
+      title: String,
+      completed: Boolean,
+    },
+  ],
   creator: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
 })
 

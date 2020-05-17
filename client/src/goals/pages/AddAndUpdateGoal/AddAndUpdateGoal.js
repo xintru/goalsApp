@@ -5,7 +5,6 @@ import { useHistory, useParams } from 'react-router-dom'
 import { UserContext } from '../../../util/context/user-context'
 import { MAIN_PAGE } from '../../../util/constants/routes'
 import useForm from '../../../util/hooks/form-hook'
-import GoalForm from '../../components/GoalForm/GoalForm'
 import goalInputs from '../../components/GoalForm/inputs/goalInputs'
 
 import useStyles from './AddAndUpdateGoal.style'
@@ -13,6 +12,10 @@ import theme from '../../../util/theme/theme'
 import { GoalContext } from '../../context/GoalContext'
 import GoalStepper from '../../components/GoalStepper/GoalStepper'
 import GoalStepperControls from '../../components/GoalStepper/GoalStepperControls'
+
+import GoalForm from '../../components/GoalForm/GoalForm'
+import GoalCustomization from '../../components/GoalCustomization/GoalCustomization'
+import { getGoalDate } from '../../../util/helpers/getGoalDate'
 
 const steps = ['Опишите', 'Кастомизируйте', 'Добавьте']
 
@@ -28,6 +31,14 @@ const AddAndUpdateGoal = () => {
   const currentGoal = goals.find((goal) => goal.id === goalId)
   const { formState, onInputHandler } = useForm(goalInputs, !!currentGoal)
   const [activeStep, setActiveStep] = useState(0)
+  const [customizationOptions, setCustomizationOptions] = useState({
+    date: {
+      week: true,
+      month: false,
+      year: false,
+    },
+    subgoals: [],
+  })
   const [httpData, setHttpData] = useState({})
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -61,7 +72,12 @@ const AddAndUpdateGoal = () => {
           />
         )
       case 1:
-        return <Typography>Customization here</Typography>
+        return (
+          <GoalCustomization
+            customizationOptions={customizationOptions}
+            setCustomizationOptions={setCustomizationOptions}
+          />
+        )
       case 2:
         return <Typography>Summary</Typography>
       default:
@@ -79,7 +95,11 @@ const AddAndUpdateGoal = () => {
         }))
       // need to add customization
       case 1:
-        return () => {}
+        return setHttpData((prevHttpData) => ({
+          ...prevHttpData,
+          date: getGoalDate(customizationOptions.date),
+          subgoals: customizationOptions.subgoals,
+        }))
       default:
         return null
     }
