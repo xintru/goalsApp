@@ -20,9 +20,8 @@ const GoalStepper = () => {
   const { activeStep, steps } = useContext(GoalContext)
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-  return (
-    <div className={classes.root}>
-      {isMobile ? (
+  const StepperComponent = isMobile
+    ? ({ children }) => (
         <MobileStepper
           variant="progress"
           steps={steps.length}
@@ -30,25 +29,20 @@ const GoalStepper = () => {
           nextButton={<MobileStepperNextButton />}
           backButton={<MobileStepperBackButton />}
         >
-          {steps.map((label) => {
-            return (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            )
-          })}
+          {children}
         </MobileStepper>
-      ) : (
-        <Stepper activeStep={activeStep}>
-          {steps.map((label) => {
-            return (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            )
-          })}
-        </Stepper>
-      )}
+      )
+    : ({ children }) => <Stepper activeStep={activeStep}>{children}</Stepper>
+
+  return (
+    <div className={classes.root}>
+      <StepperComponent>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </StepperComponent>
     </div>
   )
 }

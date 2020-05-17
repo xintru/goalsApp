@@ -6,18 +6,18 @@ import {
   Typography,
   Menu,
   MenuItem,
-  Button,
   Box,
   Avatar,
 } from '@material-ui/core'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import MenuIcon from '@material-ui/icons/Menu'
 // import AccountCircle from '@material-ui/icons/AccountCircle'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 
 import Drawer from '../drawer/Drawer'
+import NavLinkButton from '../UI/LinkButtons/NavLinkButton'
 import { AuthContext } from '../../util/context/auth-context'
 import useStyles from './Toolbar.style.'
 
@@ -102,13 +102,21 @@ const ToolbarComponent = () => {
         )}
         {!isLoggedIn && (
           <>
-            <NavLink to="/login" activeClassName={classes.activeNavLink}>
-              <Button className={classes.authButton}>Вход</Button>
-            </NavLink>
+            <NavLinkButton
+              to="/login"
+              activeClassName={classes.activeNavLink}
+              className={classes.authButton}
+            >
+              Вход
+            </NavLinkButton>
             {!isMobile && (
-              <NavLink to="/sign_up" activeClassName={classes.activeNavLink}>
-                <Button className={classes.authButton}>Регистрация</Button>
-              </NavLink>
+              <NavLinkButton
+                to="/sign_up"
+                activeClassName={classes.activeNavLink}
+                className={classes.authButton}
+              >
+                Регистрация
+              </NavLinkButton>
             )}
           </>
         )}

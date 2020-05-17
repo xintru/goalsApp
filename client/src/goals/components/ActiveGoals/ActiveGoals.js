@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-
 import {
   Typography,
-  Button,
   List,
   ListItem,
   ListItemText,
@@ -17,7 +14,7 @@ import AddIcon from '@material-ui/icons/Add'
 import InfoIcon from '@material-ui/icons/Info'
 
 import Loading from '../../../shared/UI/Loading/Loading'
-
+import LinkButton from '../../../shared/UI/LinkButtons/LinkButton'
 import useStyles from './ActiveGoals.style'
 import { NEW_GOAL } from '../../../util/constants/routes'
 
@@ -27,22 +24,21 @@ const ActiveGoals = (props) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-  // NEEDS HUGE REFACTORING
+  // Gotta find a workaround with loading
   return (
     <div className={classes.root}>
       <div className={classes.goalsBar}>
         <Typography variant="h6" className={classes.title}>
           Активные цели:
         </Typography>
-        <Link to={NEW_GOAL}>
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={isMobile ? null : <AddIcon />}
-          >
-            {isMobile ? <AddIcon /> : 'Добавить цель'}
-          </Button>
-        </Link>
+        <LinkButton
+          to={NEW_GOAL}
+          variant="contained"
+          color="secondary"
+          startIcon={isMobile ? null : <AddIcon />}
+        >
+          {isMobile ? <AddIcon /> : 'Добавить цель'}
+        </LinkButton>
       </div>
       {goals.length === 0 ? (
         <Typography className={classes.noGoals}>
@@ -69,27 +65,15 @@ const ActiveGoals = (props) => {
                       root: classes.progress,
                     }}
                   />
-                  <Link to={`/goal/${goal.id}`}>
-                    {isMobile ? (
-                      <Button
-                        type="button"
-                        variant="outlined"
-                        color="primary"
-                        className={classes.btn}
-                      >
-                        <InfoIcon />
-                      </Button>
-                    ) : (
-                      <Button
-                        type="button"
-                        variant="outlined"
-                        color="primary"
-                        className={classes.btn}
-                      >
-                        Подробнее
-                      </Button>
-                    )}
-                  </Link>
+                  <LinkButton
+                    to={`/goal/${goal.id}`}
+                    type="button"
+                    variant="outlined"
+                    color="primary"
+                    className={classes.btn}
+                  >
+                    {isMobile ? <InfoIcon /> : 'Подробнее'}
+                  </LinkButton>
                 </ListItem>
                 <Divider />
               </React.Fragment>
