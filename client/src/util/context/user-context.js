@@ -74,6 +74,7 @@ const UserStore = (props) => {
 
   const updateGoal = useCallback(
     async (changedGoal, goalId) => {
+      console.log(changedGoal)
       const updatedGoal = await request(
         `api/goals/${goalId}`,
         'PATCH',

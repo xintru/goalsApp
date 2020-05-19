@@ -75,7 +75,6 @@ const AvatarComponent = (props) => {
                   className={classes.preview}
                 />
                 <Button
-                  className={classes.btn}
                   variant="contained"
                   color="secondary"
                   startIcon={<SaveIcon />}

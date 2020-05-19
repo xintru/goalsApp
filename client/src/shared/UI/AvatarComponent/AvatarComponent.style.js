@@ -34,13 +34,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
+    [theme.breakpoints.down('sm')]: {
+      padding: '0.5rem',
+    },
   },
   preview: {
     width: 150,
+    marginBottom: '1rem',
   },
-  btn: {
-    marginTop: '1rem',
-  }
 }))
 
 export default useStyles
