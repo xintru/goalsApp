@@ -45,7 +45,7 @@ const SignUpForm = (props) => {
       <Button
         disabled={!formState.formIsValid}
         type="submit"
-        color="primary"
+        color="secondary"
         variant="contained"
         className={classes.submitButton}
       >

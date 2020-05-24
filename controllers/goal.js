@@ -36,7 +36,6 @@ exports.postGoal = async (req, res, next) => {
     session.startTransaction()
     user.goals.push(newGoal)
     await user.save({ session })
-    console.log('saved user')
     await newGoal.save({ session })
     await session.commitTransaction()
   } catch (error) {
@@ -68,7 +67,7 @@ exports.patchGoal = async (req, res, next) => {
       new HttpError('Invalid inputs passed, please check your data', 422)
     )
   }
-  const { title, description, subgoals, date } = req.body
+  const { title, description, date, subgoals } = req.body
   const { goalId } = req.params
   const { userId } = req.userData
 

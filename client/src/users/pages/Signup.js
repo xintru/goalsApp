@@ -39,7 +39,7 @@ const Signup = () => {
 
   return (
     <div className={classes.root}>
-      <Paper>
+      <Paper className={classes.paper}>
         <SignUpForm
           onSubmit={onAuthenticateHandler}
           formState={formState}

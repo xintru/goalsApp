@@ -7,6 +7,11 @@ const useStyles = makeStyles({
     alignItems: 'center',
     height: 'calc(100vh - 64px)',
   },
+  paper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    minWidth: 300,
+  },
   card: {
     width: '20vw',
     minWidth: 300,
