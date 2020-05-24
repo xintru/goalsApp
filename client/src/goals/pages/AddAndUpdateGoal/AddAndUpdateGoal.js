@@ -15,6 +15,7 @@ import GoalStepperControls from '../../components/GoalStepper/GoalStepperControl
 
 import GoalForm from '../../components/GoalForm/GoalForm'
 import GoalCustomization from '../../components/GoalCustomization/GoalCustomization'
+import GoalSummary from '../../components/GoalSummary/GoalSummary'
 import { getGoalDate } from '../../../util/helpers/getGoalDate'
 
 const steps = ['Опишите', 'Кастомизируйте', 'Добавьте']
@@ -48,8 +49,12 @@ const AddAndUpdateGoal = () => {
       goalInputs.forEach((goal) =>
         onInputHandler(goal.id, currentGoal[goal.id])
       )
+      setCustomizationOptions((prevOptions) => ({
+        ...prevOptions,
+        subgoals: [...currentGoal.subgoals],
+      }))
     }
-  }, [currentGoal, onInputHandler])
+  }, [currentGoal, onInputHandler, setCustomizationOptions])
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
@@ -79,7 +84,7 @@ const AddAndUpdateGoal = () => {
           />
         )
       case 2:
-        return <Typography>Summary</Typography>
+        return <GoalSummary />
       default:
         return <Typography>Ой-ой, что-то пошло не так</Typography>
     }
@@ -118,8 +123,12 @@ const AddAndUpdateGoal = () => {
     <GoalContext.Provider
       value={{
         activeStep,
-        steps,
+        steps: goalId
+          ? [...steps.slice(0, steps.length - 1), 'Обновите']
+          : steps,
         formIsValid: formState.formIsValid,
+        newGoal: !goalId,
+        httpData,
         handleNextStep,
         handlePrevStep,
         onSubmitHandler,

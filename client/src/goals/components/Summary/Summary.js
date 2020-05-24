@@ -16,7 +16,7 @@ import QueryBuilderIcon from '@material-ui/icons/QueryBuilder'
 
 import Loading from '../../../shared/UI/Loading/Loading'
 import AvatarComponent from '../../../shared/UI/AvatarComponent/AvatarComponent'
-
+import calcGeneralProgress from '../../../util/helpers/calcGeneralProgress'
 import useStyles from './Summary.style'
 
 const Summary = (props) => {
@@ -52,7 +52,10 @@ const Summary = (props) => {
                       disableTypography
                       primary={<Typography>Выполнено:</Typography>}
                       secondary={
-                        <LinearProgress variant="determinate" value={40} />
+                        <LinearProgress
+                          variant="determinate"
+                          value={calcGeneralProgress(goals)}
+                        />
                       }
                     />
                   </ListItem>

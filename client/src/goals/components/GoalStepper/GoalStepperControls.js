@@ -13,6 +13,7 @@ const GoalStepperControls = () => {
     onSubmitHandler,
     formIsValid,
     steps,
+    newGoal,
   } = useContext(GoalContext)
 
   return (
@@ -26,7 +27,7 @@ const GoalStepperControls = () => {
         </Button>
       ) : (
         <Button type="submit" onClick={onSubmitHandler} disabled={!formIsValid}>
-          Добавить цель
+          {newGoal ? 'Добавить цель' : 'Обновить цель'}
         </Button>
       )}
     </div>

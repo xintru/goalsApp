@@ -16,6 +16,7 @@ export const MobileStepperNextButton = () => {
     handleNextStep,
     onSubmitHandler,
     formIsValid,
+    newGoal,
   } = useContext(GoalContext)
   return (
     <>
@@ -26,7 +27,7 @@ export const MobileStepperNextButton = () => {
           disabled={!formIsValid}
           type="button"
         >
-          Добавить
+          {newGoal ? 'Добавить' : 'Обновить'}
           <AddIcon />
         </Button>
       ) : (

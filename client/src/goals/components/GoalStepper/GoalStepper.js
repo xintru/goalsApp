@@ -19,7 +19,6 @@ const GoalStepper = () => {
   const classes = useStyles()
   const { activeStep, steps } = useContext(GoalContext)
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-
   const StepperComponent = isMobile
     ? ({ children }) => (
         <MobileStepper

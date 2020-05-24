@@ -17,6 +17,7 @@ import Loading from '../../../shared/UI/Loading/Loading'
 import LinkButton from '../../../shared/UI/LinkButtons/LinkButton'
 import useStyles from './ActiveGoals.style'
 import { NEW_GOAL } from '../../../util/constants/routes'
+import calcGoalProgress from '../../../util/helpers/calcGoalProgress'
 
 const ActiveGoals = (props) => {
   const { goals, isLoading } = props
@@ -59,7 +60,7 @@ const ActiveGoals = (props) => {
                   />
                   <LinearProgress
                     variant="determinate"
-                    value={20}
+                    value={calcGoalProgress(goal)}
                     color="secondary"
                     classes={{
                       root: classes.progress,
