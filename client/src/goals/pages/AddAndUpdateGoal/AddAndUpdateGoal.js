@@ -40,7 +40,9 @@ const AddAndUpdateGoal = () => {
     },
     subgoals: [],
   })
-  const [httpData, setHttpData] = useState({})
+  const [httpData, setHttpData] = useState({
+    completed: false,
+  })
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   // triggered when user refreshes the page completely
@@ -52,6 +54,7 @@ const AddAndUpdateGoal = () => {
       setCustomizationOptions((prevOptions) => ({
         ...prevOptions,
         subgoals: [...currentGoal.subgoals],
+        completed: currentGoal.completed,
       }))
     }
   }, [currentGoal, onInputHandler, setCustomizationOptions])

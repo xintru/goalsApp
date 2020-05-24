@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     margin: '20px auto',
-    minHeight: 100,
     width: '50%',
     [theme.breakpoints.down('sm')]: {
       width: '80%',
@@ -56,10 +55,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   goalSteps: {
-    padding: 10,
-    [theme.breakpoints.down('sm')]: {
-      padding: 0,
-    },
+    padding: 0,
   },
   editBtns: {
     position: 'absolute',
@@ -86,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
   doneBtn: {
     marginTop: '1.5rem',
-  }
+  },
 }))
 
 export default useStyles

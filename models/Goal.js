@@ -23,6 +23,10 @@ const goalSchema = new Schema({
       completed: Boolean,
     },
   ],
+  completed: {
+    type: Boolean,
+    required: true,
+  },
   creator: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
 })
 

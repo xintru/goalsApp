@@ -12,7 +12,7 @@ exports.postGoal = async (req, res, next) => {
       new HttpError('Invalid inputs passed, please check your data', 422)
     )
   }
-  const { title, description, date, subgoals } = req.body
+  const { title, description, date, subgoals, completed } = req.body
   const userId = req.userData.userId
 
   const newGoal = new Goal({
@@ -20,6 +20,7 @@ exports.postGoal = async (req, res, next) => {
     description,
     date,
     subgoals,
+    completed,
     creator: userId,
   })
   let user
@@ -67,7 +68,7 @@ exports.patchGoal = async (req, res, next) => {
       new HttpError('Invalid inputs passed, please check your data', 422)
     )
   }
-  const { title, description, date, subgoals } = req.body
+  const { title, description, date, subgoals, completed } = req.body
   const { goalId } = req.params
   const { userId } = req.userData
 
@@ -90,6 +91,7 @@ exports.patchGoal = async (req, res, next) => {
   existingGoal.description = description
   existingGoal.date = date
   existingGoal.subgoals = subgoals
+  existingGoal.completed = completed
   try {
     existingGoal.save()
   } catch (error) {

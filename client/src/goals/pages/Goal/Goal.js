@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import {
   Typography,
   Paper,
@@ -37,9 +37,15 @@ const AboutGoal = () => {
   const history = useHistory()
   // Need to add spinner while fetching
   const currentGoal = goals.find((goal) => goal.id === goalId)
-  const [subgoalStatuses, setSubgoalStatuses] = useState(
-    currentGoal ? currentGoal.subgoals.map((subgoal) => subgoal.completed) : []
-  )
+  const [subgoalStatuses, setSubgoalStatuses] = useState([])
+
+  useEffect(() => {
+    if (currentGoal) {
+      setSubgoalStatuses(
+        currentGoal.subgoals.map((subgoal) => subgoal.completed)
+      )
+    }
+  }, [currentGoal, setSubgoalStatuses])
 
   const onDeleteHandler = () => {
     deleteGoal(goalId)
@@ -54,6 +60,7 @@ const AboutGoal = () => {
           ...subgoal,
           completed: subgoalStatuses[i],
         })),
+        completed: subgoalStatuses.reduce((a, b) => a && b, true),
       },
       goalId
     )
@@ -65,6 +72,8 @@ const AboutGoal = () => {
       prevState.map((el, i) => (i === index ? !el : el))
     )
   }
+
+  const checkGoalStatus = () => subgoalStatuses.reduce((a, b) => a && b, true)
 
   return (
     <div className={classes.root}>
@@ -108,52 +117,42 @@ const AboutGoal = () => {
             color="secondary"
             label={`До ${convertGoalDate(currentGoal.date)}`}
           />
-          {currentGoal.subgoals.length ? (
+          {!!currentGoal.subgoals.length && (
             <>
-              <Paper className={classes.paper} elevation={2}>
-                <List className={classes.goalSteps}>
-                  {currentGoal.subgoals.map((subgoal, index) => (
-                    <ListItem
-                      button
-                      key={subgoal.id}
-                      onClick={() => onCheckHandler(index)}
-                    >
+              <List className={classes.goalSteps}>
+                {currentGoal.subgoals.map((subgoal, index) => (
+                  <Paper
+                    className={classes.paper}
+                    classes={{ root: classes.paperInner }}
+                    elevation={2}
+                    key={subgoal.id}
+                  >
+                    <ListItem button onClick={() => onCheckHandler(index)}>
                       <ListItemIcon>
                         <Checkbox
-                          checked={subgoalStatuses[index]}
+                          checked={subgoalStatuses[index] || false}
                           name={subgoal.title}
                         />
                       </ListItemIcon>
                       <ListItemText primary={subgoal.title} />
                     </ListItem>
-                  ))}
-                </List>
-              </Paper>
-              <LinkButton
-                to={MAIN_PAGE}
-                color="primary"
-                variant="outlined"
-                onClick={onSaveHandler}
-                startIcon={<SaveIcon />}
-                className={classes.saveBtn}
-              >
-                Сохранить
-              </LinkButton>
+                  </Paper>
+                ))}
+              </List>
             </>
-          ) : (
-            <div>
-              <LinkButton
-                to={MAIN_PAGE}
-                color="primary"
-                variant="contained"
-                onClick={onSaveHandler}
-                startIcon={<DoneIcon />}
-                className={classes.doneBtn}
-              >
-                Завершить
-              </LinkButton>
-            </div>
           )}
+          <div>
+            <LinkButton
+              to={MAIN_PAGE}
+              color="primary"
+              variant="contained"
+              onClick={onSaveHandler}
+              startIcon={checkGoalStatus() ? <DoneIcon /> : <SaveIcon />}
+              className={classes.doneBtn}
+            >
+              {checkGoalStatus() ? 'Завершить' : 'Сохранить'}
+            </LinkButton>
+          </div>
         </>
       ) : (
         <Loading />
