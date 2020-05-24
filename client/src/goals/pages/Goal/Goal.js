@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import {
   Typography,
-  IconButton,
   Paper,
   List,
   ListItem,
@@ -10,15 +9,18 @@ import {
   Checkbox,
   Chip,
 } from '@material-ui/core'
-import { useParams, useHistory, Link } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import SaveIcon from '@material-ui/icons/Save'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import DoneIcon from '@material-ui/icons/Done'
 
 import { convertGoalDate } from '../../../util/helpers/convertGoalDate'
 import { UserContext } from '../../../util/context/user-context'
 import LinkButton from '../../../shared/UI/LinkButtons/LinkButton'
+import LinkIconButton from '../../../shared/UI/LinkButtons/LinkIconButton'
+import Loading from '../../../shared/UI/Loading/Loading'
 import useStyles from './Goal.style'
 import { MAIN_PAGE } from '../../../util/constants/routes'
 
@@ -64,76 +66,96 @@ const AboutGoal = () => {
 
   return (
     <div className={classes.root}>
-      <LinkButton
-        to={MAIN_PAGE}
-        color="primary"
-        startIcon={<ArrowBackIcon />}
-        className={classes.backBtn}
-      >
-        Назад
-      </LinkButton>
-      <div className={classes.editBtns}>
-        <Link to={`/update_goal/${goalId}`}>
-          <IconButton color="primary" className={classes.btn}>
-            <EditIcon />
-          </IconButton>
-        </Link>
-        <IconButton
-          color="secondary"
-          onClick={onDeleteHandler}
-          className={classes.btn}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </div>
-      <div className={classes.titleBox}>
-        <Typography variant="h4" className={classes.title}>
-          {currentGoal ? currentGoal.title : ''}
-        </Typography>
-      </div>
-      <Typography className={classes.description}>
-        {currentGoal ? currentGoal.description : ''}
-      </Typography>
       {currentGoal ? (
-        <Chip
-          className={classes.date}
-          color="secondary"
-          label={`До ${convertGoalDate(currentGoal.date)}`}
-        />
+        <>
+          <LinkButton
+            to={MAIN_PAGE}
+            color="primary"
+            startIcon={<ArrowBackIcon />}
+            className={classes.backBtn}
+          >
+            Назад
+          </LinkButton>
+          <div className={classes.editBtns}>
+            <LinkIconButton
+              to={`/update_goal/${goalId}`}
+              color="primary"
+              className={classes.btn}
+            >
+              <EditIcon />
+            </LinkIconButton>
+            <LinkIconButton
+              to={MAIN_PAGE}
+              color="secondary"
+              onClick={onDeleteHandler}
+              className={classes.btn}
+            >
+              <DeleteIcon />
+            </LinkIconButton>
+          </div>
+          <div className={classes.titleBox}>
+            <Typography variant="h4" className={classes.title}>
+              {currentGoal.title}
+            </Typography>
+          </div>
+          <Typography className={classes.description}>
+            {currentGoal.description}
+          </Typography>
+          <Chip
+            className={classes.date}
+            color="secondary"
+            label={`До ${convertGoalDate(currentGoal.date)}`}
+          />
+          {currentGoal.subgoals.length ? (
+            <>
+              <Paper className={classes.paper} elevation={2}>
+                <List className={classes.goalSteps}>
+                  {currentGoal.subgoals.map((subgoal, index) => (
+                    <ListItem
+                      button
+                      key={subgoal.id}
+                      onClick={() => onCheckHandler(index)}
+                    >
+                      <ListItemIcon>
+                        <Checkbox
+                          checked={subgoalStatuses[index]}
+                          name={subgoal.title}
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary={subgoal.title} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Paper>
+              <LinkButton
+                to={MAIN_PAGE}
+                color="primary"
+                variant="outlined"
+                onClick={onSaveHandler}
+                startIcon={<SaveIcon />}
+                className={classes.saveBtn}
+              >
+                Сохранить
+              </LinkButton>
+            </>
+          ) : (
+            <div>
+              <LinkButton
+                to={MAIN_PAGE}
+                color="primary"
+                variant="contained"
+                onClick={onSaveHandler}
+                startIcon={<DoneIcon />}
+                className={classes.doneBtn}
+              >
+                Завершить
+              </LinkButton>
+            </div>
+          )}
+        </>
       ) : (
-        ''
+        <Loading />
       )}
-      <Paper className={classes.paper} elevation={2}>
-        <List className={classes.goalSteps}>
-          {currentGoal
-            ? currentGoal.subgoals.map((subgoal, index) => (
-                <ListItem
-                  button
-                  key={subgoal.id}
-                  onClick={() => onCheckHandler(index)}
-                >
-                  <ListItemIcon>
-                    <Checkbox
-                      checked={subgoalStatuses[index]}
-                      name={subgoal.title}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={subgoal.title} />
-                </ListItem>
-              ))
-            : ''}
-        </List>
-      </Paper>
-      <LinkButton
-        to={MAIN_PAGE}
-        color="primary"
-        variant="outlined"
-        onClick={onSaveHandler}
-        startIcon={<SaveIcon />}
-        className={classes.saveBtn}
-      >
-        Сохранить
-      </LinkButton>
     </div>
   )
 }

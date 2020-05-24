@@ -84,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
       left: '1rem',
     },
   },
+  doneBtn: {
+    marginTop: '1.5rem',
+  }
 }))
 
 export default useStyles

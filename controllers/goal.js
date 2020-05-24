@@ -36,7 +36,6 @@ exports.postGoal = async (req, res, next) => {
     session.startTransaction()
     user.goals.push(newGoal)
     await user.save({ session })
-    console.log('saved user')
     await newGoal.save({ session })
     await session.commitTransaction()
   } catch (error) {

@@ -40,9 +40,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       minWidth: 130,
       marginRight: '1rem',
-      // overflow: 'hidden',
-      // whiteSpace: 'nowrap',
-      // textOverflow: 'ellipsis',
     },
   },
   progress: {
