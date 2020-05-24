@@ -25,6 +25,7 @@ const ActiveGoals = (props) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
+  // Gotta find a workaround with loading
   
   return (
     <div className={classes.root}>

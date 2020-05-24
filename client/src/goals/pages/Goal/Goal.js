@@ -24,6 +24,8 @@ import Loading from '../../../shared/UI/Loading/Loading'
 import useStyles from './Goal.style'
 import { MAIN_PAGE } from '../../../util/constants/routes'
 
+// надо порефакторить
+
 const AboutGoal = () => {
   const {
     user: { goals },

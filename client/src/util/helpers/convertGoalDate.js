@@ -1,3 +1,1 @@
-export const convertGoalDate = (date) => {
-  return new Date(date).toLocaleDateString()
-}
+export const convertGoalDate = (date) => new Date(date).toLocaleDateString()
