@@ -8,6 +8,9 @@ const useStyles = makeStyles({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, 50%)',
   },
+  description: {
+    margin: '10px 0',
+  }
 })
 
 export default useStyles

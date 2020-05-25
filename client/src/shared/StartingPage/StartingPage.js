@@ -16,6 +16,7 @@ const StartingPage = () => {
             CRUMBS
           </Box>
         </Typography>
+        <Typography className={classes.description} variant="h6">Минималистичный онлайн-трекер целей и задач</Typography>
       </div>
       <Slider initialSlides={initialSlides} />
     </div>

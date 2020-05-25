@@ -75,6 +75,8 @@ const AboutGoal = () => {
 
   const checkGoalStatus = () => subgoalStatuses.reduce((a, b) => a && b, true)
 
+  const isGoalCompleted = () => currentGoal.completed
+
   return (
     <div className={classes.root}>
       {currentGoal ? (
@@ -88,13 +90,15 @@ const AboutGoal = () => {
             Назад
           </LinkButton>
           <div className={classes.editBtns}>
-            <LinkIconButton
-              to={`/update_goal/${goalId}`}
-              color="primary"
-              className={classes.btn}
-            >
-              <EditIcon />
-            </LinkIconButton>
+            {isGoalCompleted() ? null : (
+              <LinkIconButton
+                to={`/update_goal/${goalId}`}
+                color="primary"
+                className={classes.btn}
+              >
+                <EditIcon />
+              </LinkIconButton>
+            )}
             <LinkIconButton
               to={MAIN_PAGE}
               color="secondary"
@@ -127,7 +131,11 @@ const AboutGoal = () => {
                     elevation={2}
                     key={subgoal.id}
                   >
-                    <ListItem button onClick={() => onCheckHandler(index)}>
+                    <ListItem
+                      button
+                      onClick={() => onCheckHandler(index)}
+                      disabled={currentGoal.completed}
+                    >
                       <ListItemIcon>
                         <Checkbox
                           checked={subgoalStatuses[index] || false}
@@ -142,16 +150,18 @@ const AboutGoal = () => {
             </>
           )}
           <div>
-            <LinkButton
-              to={MAIN_PAGE}
-              color="primary"
-              variant="contained"
-              onClick={onSaveHandler}
-              startIcon={checkGoalStatus() ? <DoneIcon /> : <SaveIcon />}
-              className={classes.doneBtn}
-            >
-              {checkGoalStatus() ? 'Завершить' : 'Сохранить'}
-            </LinkButton>
+            {isGoalCompleted() ? null : (
+              <LinkButton
+                to={MAIN_PAGE}
+                color="primary"
+                variant="contained"
+                onClick={onSaveHandler}
+                startIcon={checkGoalStatus() ? <DoneIcon /> : <SaveIcon />}
+                className={classes.doneBtn}
+              >
+                {checkGoalStatus() ? 'Завершить' : 'Сохранить'}
+              </LinkButton>
+            )}
           </div>
         </>
       ) : (

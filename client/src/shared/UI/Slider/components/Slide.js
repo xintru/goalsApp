@@ -1,12 +1,14 @@
 import React, { useRef, useEffect } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import LinkButton from '../../LinkButtons/LinkButton'
 
 import classes from '../Slider.module.scss'
 import {
   CONTENT_FADE_TRANSITION,
   FADE_TIME,
 } from '../constants/sliderConstants'
+import { SIGN_UP } from '../../../../util/constants/routes'
 
 const Slide = (props) => {
   const timeoutRef = useRef()
@@ -92,12 +94,14 @@ const Slide = (props) => {
 
       <article className={classes.slide__content} ref={contentFadeRef}>
         <h2 className={classes.slide__headline}>{headline}</h2>
-        <button
-          type="button"
-          className={classNames(classes.slide__action, classes.btn)}
+        <LinkButton
+          to={SIGN_UP}
+          variant="contained"
+          color="secondary"
+          size="large"
         >
           {button}
-        </button>
+        </LinkButton>
       </article>
     </li>
   )
