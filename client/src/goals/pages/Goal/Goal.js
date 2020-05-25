@@ -75,8 +75,6 @@ const AboutGoal = () => {
 
   const checkGoalStatus = () => subgoalStatuses.reduce((a, b) => a && b, true)
 
-  const isGoalCompleted = () => currentGoal.completed
-
   return (
     <div className={classes.root}>
       {currentGoal ? (
@@ -90,7 +88,7 @@ const AboutGoal = () => {
             Назад
           </LinkButton>
           <div className={classes.editBtns}>
-            {isGoalCompleted() ? null : (
+            {!currentGoal.completed && (
               <LinkIconButton
                 to={`/update_goal/${goalId}`}
                 color="primary"
@@ -150,7 +148,7 @@ const AboutGoal = () => {
             </>
           )}
           <div>
-            {isGoalCompleted() ? null : (
+            {!currentGoal.completed && (
               <LinkButton
                 to={MAIN_PAGE}
                 color="primary"
