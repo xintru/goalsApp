@@ -24,7 +24,7 @@ const SubGoalDialog = (props) => {
             value={newSubgoalName}
             onChange={onChange}
             variant="outlined"
-            inputProps={{ maxLength: 20 }}
+            inputProps={{ maxLength: 30 }}
             label="Название"
             className={classes.dialogTextField}
           />
@@ -34,7 +34,7 @@ const SubGoalDialog = (props) => {
               root: classes.subgoalHelperText,
             }}
           >
-            Опишите свой дополнительный шаг. Максимальная длина - 20 символов.
+            Опишите свой дополнительный шаг. Максимальная длина - 30 символов.
           </FormHelperText>
           <Button
             disabled={!newSubgoalName.length}

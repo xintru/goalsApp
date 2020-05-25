@@ -26,7 +26,7 @@ const ActiveGoals = (props) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   // Gotta find a workaround with loading
-  
+
   return (
     <div className={classes.root}>
       <div className={classes.goalsBar}>
@@ -61,8 +61,8 @@ const ActiveGoals = (props) => {
                   />
                   <LinearProgress
                     variant="determinate"
-                    value={calcGoalProgress(goal)}
-                    color="secondary"
+                    value={goal.completed ? 100 : calcGoalProgress(goal)}
+                    color={goal.completed ? 'primary' : 'secondary'}
                     classes={{
                       root: classes.progress,
                     }}

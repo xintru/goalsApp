@@ -5,6 +5,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Chip,
 } from '@material-ui/core'
 import { ChevronRight } from '@material-ui/icons'
 import { GoalContext } from '../../context/GoalContext'
@@ -15,13 +16,12 @@ const GoalSummary = () => {
   const { httpData } = useContext(GoalContext)
   return (
     <div className={classes.root}>
-      <Typography>{httpData.title}</Typography>
-      <Typography>{httpData.description}</Typography>
-      <Typography>{new Date(httpData.date).toLocaleString()}</Typography>
+      <Typography variant="h5" color='primary'>{httpData.title}</Typography>
+      <Typography className={classes.description}>{httpData.description}</Typography>
+      <Chip variant="outlined" color="secondary" label={`До ${new Date(httpData.date).toLocaleDateString()}`}/>
       <hr />
       {!!httpData.subgoals.length && (
         <>
-          <Typography>Subgoals: </Typography>
           <List className={classes.subgoalList}>
             {httpData.subgoals.map((subgoal, i) => (
               <ListItem

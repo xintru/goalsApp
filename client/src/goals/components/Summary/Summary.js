@@ -67,7 +67,7 @@ const Summary = (props) => {
                       disableTypography
                       primary={<Typography>В процессе:</Typography>}
                       secondary={
-                        <LinearProgress variant="determinate" value={50} />
+                        <LinearProgress variant="determinate" value={50} color="secondary"/>
                       }
                     />
                   </ListItem>
@@ -76,8 +76,8 @@ const Summary = (props) => {
                       <QueryBuilderIcon color="secondary" fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
-                      primary={<Typography>Отложено:</Typography>}
-                      secondary="10%"
+                      primary={<Typography>Просрочено:</Typography>}
+                      secondary="0"
                     />
                   </ListItem>
                 </List>

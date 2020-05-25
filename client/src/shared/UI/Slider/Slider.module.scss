@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:700|IBM+Plex+Sans:500&display=swap');
 
 :root {
-  --color-primary: #6b7a8f;
-  --color-secondary: #101118;
-  --color-accent: #1d1f2f;
-  --color-focus: #6d64f7;
+  --color-primary: #512DA8;
+  --color-secondary: #FF5722;
+  --color-accent: #212121;
+  --color-focus: #eee;
   --base-duration: 600ms;
   --base-ease: cubic-bezier(0.25, 0.46, 0.45, 0.84);
 }
@@ -28,14 +28,17 @@
 // =========================
 
 .btn {
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
   border: none;
-  border-radius: 0.125rem;
+  border-radius: 4px;
   color: white;
   cursor: pointer;
-  font-family: inherit;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
   font-size: inherit;
-  padding: 1rem 2.5rem 1.125rem;
+  letter-spacing: 0.02857em;
+  padding: 1rem 2rem;
 
   &:focus {
     outline-color: var(--color-focus);

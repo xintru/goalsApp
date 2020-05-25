@@ -45,7 +45,8 @@ const LoginForm = (props) => {
         />
       ))}
       <Typography className={classes.link}>
-        <Link to={SIGN_UP}>Еще нет аккаунта?</Link>
+        Еще нет аккаунта? 
+        <Link to={SIGN_UP}> Зарегистрируйтесь.</Link>
       </Typography>
       <Button
         disabled={!formState.formIsValid}
