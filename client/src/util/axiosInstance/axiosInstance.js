@@ -6,6 +6,8 @@ import LocalStorageService from '../services/LocalStorageService'
 const localStorageService = new LocalStorageService()
 const history = createBrowserHistory()
 
+// Automatic addition of a token to request if there is a token.
+
 const createTokenInterceptor = (config) => {
   const newConfig = { ...config }
   const token = localStorageService.getToken()
@@ -16,6 +18,8 @@ const createTokenInterceptor = (config) => {
   }
   return newConfig
 }
+
+// Refresh token flow
 
 const createRefreshTokenInterceptor = async (error) => {
   const originalRequest = error.config

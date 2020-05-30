@@ -1,45 +1,16 @@
 import { useCallback, useEffect, useReducer } from 'react'
 import * as type from '../constants/actions/auth'
 import LocalStorageService from '../services/LocalStorageService'
+import authReducer, { initialState } from '../reducers/auth-hook-reducer'
 
 let logoutTimer
 const localStorageService = new LocalStorageService()
 
-const initialState = {
-  token: '',
-  tokenExpirationDate: '',
-  userId: '',
-  username: '',
-  userAvatar: '',
-}
-
-const authReducer = (state, action) => {
-  switch (action.type) {
-    case type.SET_AUTH_STATE:
-      return {
-        ...state,
-        token: action.token,
-        userId: action.userId,
-        username: action.username,
-        userAvatar: action.avatar,
-      }
-    case type.SET_EXP_DATE:
-      return {
-        ...state,
-        tokenExpirationDate: action.expDate,
-      }
-    case type.RESET_AUTH_STATE:
-      return initialState
-    case type.UPDATE_AVATAR: {
-      return {
-        ...state,
-        userAvatar: action.avatar,
-      }
-    }
-    default:
-      return state
-  }
-}
+// Custom hook that shares info about user auth state through child components.
+// Currently auth works via localStorage, but can obviously be switched just by addition of
+// other storage decision. This hook is being used in Context "Store" which then forwards every
+// method to child component. This hook is expected to be initialized on the one of the top levels
+// of the application in order to get valuable info about token, as example.
 
 const useAuth = () => {
   const [authState, dispatch] = useReducer(authReducer, initialState)
@@ -84,6 +55,8 @@ const useAuth = () => {
     localStorageService.clearStorage()
   }, [])
 
+  // Re-login if token is still valid.
+
   useEffect(() => {
     const storedTokenData = localStorageService.getToken()
     const storedUserData = localStorageService.getUserData()
@@ -102,6 +75,8 @@ const useAuth = () => {
       )
     }
   }, [login])
+
+  // Logic to reduce remaining time of the access token.
 
   useEffect(() => {
     if (authState.token && authState.tokenExpirationDate) {

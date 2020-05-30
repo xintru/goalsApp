@@ -1,4 +1,7 @@
 /* eslint-disable class-methods-use-this */
+
+// Service that works with localStorage to store access token and user data.
+
 class LocalStorageService {
   getService() {
     return this

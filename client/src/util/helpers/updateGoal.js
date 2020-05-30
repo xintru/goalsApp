@@ -1,3 +1,5 @@
+// Updating goal for user reducer.
+
 const updateGoal = (state, action) => {
   const goalIndex = state.user.goals.findIndex(
     (goal) => goal.id === action.updatedGoal.id

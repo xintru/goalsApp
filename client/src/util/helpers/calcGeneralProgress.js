@@ -1,3 +1,5 @@
+// Calculates general goal progress of the user based on his goals & subgoals.
+
 const calcGeneralProgress = (goals) =>
   (goals
     .map((goal) => {

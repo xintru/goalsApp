@@ -1,6 +1,11 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import axios from '../axiosInstance/axiosInstance'
 
+// Custom hook for http. Uses custom axios which modifies requests and responses to
+// work with access/refresh tokens. Tracks in which state request currently is, such as loading, as example.
+// Also is responsible for messages in snackbar, either errors or loading messages.
+// Finally, tracks active requests and aborts them if needed.
+
 const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [loadingMessage, setLoadingMessage] = useState('')
