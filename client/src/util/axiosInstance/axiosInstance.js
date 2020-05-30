@@ -20,7 +20,7 @@ const createTokenInterceptor = (config) => {
 const createRefreshTokenInterceptor = async (error) => {
   const originalRequest = error.config
   if (
-    error.response.status === 401 &&
+    error.response.status === 403 &&
     originalRequest.url === 'http://localhost:3000/api/auth/refresh'
   ) {
     history.push('/')
