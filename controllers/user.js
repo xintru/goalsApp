@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const HttpError = require('../models/http-error')
 const User = require('../models/User')
 
@@ -43,7 +44,7 @@ exports.patchUserAvatar = async (req, res, next) => {
   }
 
   if (user.avatar !== '/uploads/images/default_avatar.png') {
-    fs.unlink(user.avatar, () => {
+    fs.unlink(path.join(__dirname, '..', user.avatar), (err) => {
       console.log('Could not remove old user avatar.')
     })
   }
