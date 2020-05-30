@@ -23,6 +23,9 @@ const userSchema = new Schema({
   avatar: {
     type: String,
   },
+  refresh: {
+    type: String,
+  },
   goals: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Goal' }],
 })
 

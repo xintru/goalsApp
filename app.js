@@ -3,6 +3,8 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const fs = require('fs')
+const helmet = require('helmet')
+const session = require('cookie-session')
 
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
@@ -11,8 +13,19 @@ const HttpError = require('./models/http-error')
 
 const app = express()
 
-app.use(bodyParser.json())
+//TODO закодировать в рефреш токен юзерайди
 
+app.set('trust proxy', 1)
+app.use(helmet())
+app.use(bodyParser.json())
+app.use(
+  session({
+    secret: 'hansel_gretel',
+    name: 'crumbs',
+    httpOnly: true,
+    maxAge: 7200000,
+  })
+)
 app.use(
   '/uploads/images',
   express.static(path.join(__dirname, 'uploads', 'images'))

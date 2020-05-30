@@ -31,7 +31,13 @@ const Signup = () => {
         {},
         'Регистрация выполняется...'
       )
-      login(response.token, response.name, response.userId, response.avatar)
+      login(
+        response.token,
+        response.name,
+        response.userId,
+        response.avatar,
+        response.expDate
+      )
       history.push('/')
       // eslint-disable-next-line no-empty
     } catch (error) {}

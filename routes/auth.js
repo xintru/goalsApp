@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const { check } = require('express-validator')
+const checkAuth = require('../middleware/check-auth')
 
 const router = Router()
 const userControllers = require('../controllers/auth')
@@ -23,5 +24,7 @@ router.post(
   ],
   userControllers.login
 )
+
+router.get('/refresh', userControllers.refreshToken)
 
 module.exports = router

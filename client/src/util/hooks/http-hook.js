@@ -1,31 +1,11 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
-import axios from 'axios'
-
-const createTokenInterceptor = (request) => {
-  const userData = localStorage.getItem('breadCrumbsUserData')
-  let token
-  if (userData) {
-    token = JSON.parse(userData).token
-  }
-  if (token) {
-    request.headers.Authorization = `Bearer ${token}`
-  } else {
-    delete request.headers.Authorization
-  }
-  return request
-}
+import axios from '../axiosInstance/axiosInstance'
 
 const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [loadingMessage, setLoadingMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState(false)
   const activeHttpRequests = useRef([])
-
-  // Token interceptor
-
-  axios.interceptors.request.use(createTokenInterceptor, (error) =>
-    Promise.reject(error)
-  )
 
   const request = useCallback(
     async (

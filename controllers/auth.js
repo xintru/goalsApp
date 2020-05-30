@@ -1,11 +1,13 @@
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const fs = require('fs')
+const { v4: uuid } = require('uuid')
+const session = require('cookie-session')
+const moment = require('moment')
 
 const HttpError = require('../models/http-error')
 const User = require('../models/User')
-const { JWT_PRIVATE_KEY } = require('../secrets/secrets')
+const { JWT_PRIVATE_KEY, JWT_REFRESH_KEY } = require('../secrets/secrets')
 
 exports.signUp = async (req, res, next) => {
   const errors = validationResult(req)
@@ -40,12 +42,20 @@ exports.signUp = async (req, res, next) => {
     return next(new HttpError('Could not create user, please try again.', 500))
   }
 
+  let refreshToken
+  try {
+    refreshToken = jwt.sign({ userId: user.id }, JWT_REFRESH_KEY)
+  } catch (error) {
+    return next(new HttpError('Creating Token failed', 500))
+  }
+
   const newUser = new User({
     email,
     name,
     password: hashedPassword,
     goals: [],
     avatar: '/uploads/images/default_avatar.png',
+    refresh: refreshToken,
   })
 
   try {
@@ -59,21 +69,22 @@ exports.signUp = async (req, res, next) => {
     token = await jwt.sign(
       { userId: newUser.id, email: newUser.email },
       JWT_PRIVATE_KEY,
-      { expiresIn: '1h' }
+      { expiresIn: '20m' }
     )
   } catch (error) {
     return next(new HttpError('Signing up failed', 500))
   }
 
-  res
-    .status(201)
-    .json({
-      id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      avatar: newUser.avatar,
-      token,
-    })
+  req.session.crumbs = refreshToken
+
+  res.status(201).json({
+    id: newUser.id,
+    name: newUser.name,
+    email: newUser.email,
+    avatar: newUser.avatar,
+    token,
+    expDate: moment().add(20, 'm').format(),
+  })
 }
 
 exports.login = async (req, res, next) => {
@@ -105,16 +116,33 @@ exports.login = async (req, res, next) => {
     return next(new HttpError('Invalid email or password', 403))
   }
 
+  let refreshToken
+  try {
+    refreshToken = jwt.sign({ userId: user.id }, JWT_REFRESH_KEY)
+  } catch (error) {
+    return next(new HttpError('Creating Token failed', 500))
+  }
+
+  user.refresh = refreshToken
+
+  try {
+    await user.save()
+  } catch (error) {
+    return next(new HttpError('Something went wrong', 500))
+  }
+
   let token
   try {
     token = await jwt.sign(
       { userId: user.id, email: user.email },
       JWT_PRIVATE_KEY,
-      { expiresIn: '1h' }
+      { expiresIn: '20m' }
     )
   } catch (error) {
     return next(new HttpError('Logging in failed', 500))
   }
+
+  req.session.crumbs = refreshToken
 
   res.json({
     userId: user.id,
@@ -122,5 +150,36 @@ exports.login = async (req, res, next) => {
     email: user.email,
     avatar: user.avatar,
     token,
+    expDate: moment().add(20, 'm').format(),
+  })
+}
+
+exports.refreshToken = async (req, res, next) => {
+  const refreshToken = req.session.crumbs
+  const { userId } = jwt.verify(refreshToken, JWT_REFRESH_KEY)
+  let user
+  try {
+    user = await User.findById(userId)
+  } catch (error) {
+    return next(new HttpError('Could not find such user', 404))
+  }
+
+  if (refreshToken !== user.refresh) {
+    return next(new HttpError('Tokens not match', 403))
+  }
+
+  try {
+    token = await jwt.sign(
+      { userId: user.id, email: user.email },
+      JWT_PRIVATE_KEY,
+      { expiresIn: '20m' }
+    )
+  } catch (error) {
+    return next(new HttpError('Refreshing Token failed', 500))
+  }
+
+  res.status(201).json({
+    token,
+    expDate: moment().add(20, 'm').format(),
   })
 }

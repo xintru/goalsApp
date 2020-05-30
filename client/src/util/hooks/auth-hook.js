@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useReducer } from 'react'
 import * as type from '../constants/actions/auth'
+import LocalStorageService from '../services/LocalStorageService'
 
 let logoutTimer
+const localStorageService = new LocalStorageService()
+
 const initialState = {
   token: '',
   tokenExpirationDate: '',
@@ -43,32 +46,28 @@ const useAuth = () => {
 
   const updateAvatar = useCallback(
     (avatar) => {
-      const data = localStorage.getItem('breadCrumbsUserData')
-      const userData = JSON.parse(data)
+      const userData = localStorageService.getUserData()
       userData.avatar = avatar
-      localStorage.setItem('breadCrumbsUserData', JSON.stringify(userData))
+      localStorageService.setUserData(userData)
       dispatch({ type: type.UPDATE_AVATAR, avatar })
     },
     [dispatch]
   )
 
   const login = useCallback((newToken, name, uid, avatar, expDate) => {
-    const expirationDate =
-      expDate || new Date(new Date().getTime() + 1000 * 3600)
     dispatch({
       type: type.SET_EXP_DATE,
-      expDate: expirationDate,
+      expDate,
     })
-    localStorage.setItem(
-      'breadCrumbsUserData',
-      JSON.stringify({
-        userId: uid,
-        username: name,
-        token: newToken,
-        expiration: expirationDate.toISOString(),
-        avatar,
-      })
-    )
+    localStorageService.setUserData({
+      userId: uid,
+      username: name,
+      avatar,
+    })
+    localStorageService.setToken({
+      token: newToken,
+      expDate,
+    })
     dispatch({
       type: type.SET_AUTH_STATE,
       token: newToken,
@@ -82,22 +81,24 @@ const useAuth = () => {
     dispatch({
       type: type.RESET_AUTH_STATE,
     })
-    localStorage.removeItem('breadCrumbsUserData')
+    localStorageService.clearStorage()
   }, [])
 
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('breadCrumbsUserData'))
+    const storedTokenData = localStorageService.getToken()
+    const storedUserData = localStorageService.getUserData()
     if (
-      storedData &&
-      storedData.token &&
-      new Date(storedData.expiration) > new Date()
+      storedTokenData &&
+      storedUserData &&
+      storedTokenData.token &&
+      new Date(storedTokenData.expDate) > new Date()
     ) {
       login(
-        storedData.token,
-        storedData.username,
-        storedData.userId,
-        storedData.avatar,
-        new Date(storedData.expiration)
+        storedTokenData.token,
+        storedUserData.username,
+        storedUserData.userId,
+        storedUserData.avatar,
+        storedTokenData.expDate
       )
     }
   }, [login])
@@ -105,7 +106,7 @@ const useAuth = () => {
   useEffect(() => {
     if (authState.token && authState.tokenExpirationDate) {
       const remainingTime =
-        authState.tokenExpirationDate.getTime() - new Date().getTime()
+        new Date(authState.tokenExpirationDate).getTime() - new Date().getTime()
       logoutTimer = setTimeout(logout, remainingTime)
     } else {
       clearTimeout(logoutTimer)

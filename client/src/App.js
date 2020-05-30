@@ -1,5 +1,6 @@
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Router } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
 import { ThemeProvider } from '@material-ui/core/styles'
 
 import AuthStore from './util/context/auth-context'
@@ -15,7 +16,7 @@ const App = () => {
     <AuthStore>
       <HttpStore>
         <ThemeProvider theme={theme}>
-          <Router>
+          <Router history={createBrowserHistory()}>
             <Toolbar />
             <Layout>
               <AppRouter />
