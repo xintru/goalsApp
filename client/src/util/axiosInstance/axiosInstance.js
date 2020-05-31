@@ -27,7 +27,8 @@ const createRefreshTokenInterceptor = async (error) => {
     error.response.status === 403 &&
     originalRequest.url === 'http://localhost:3000/api/auth/refresh'
   ) {
-    history.push('/')
+    localStorageService.clearStorage()
+    history.push('/login')
     return Promise.reject(error)
   }
   if (error.response.status === 401 && !originalRequest._retry) {

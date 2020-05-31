@@ -3,7 +3,6 @@ import * as type from '../constants/actions/auth'
 import LocalStorageService from '../services/LocalStorageService'
 import authReducer, { initialState } from '../reducers/auth-hook-reducer'
 
-let logoutTimer
 const localStorageService = new LocalStorageService()
 
 // Custom hook that shares info about user auth state through child components.
@@ -76,17 +75,15 @@ const useAuth = () => {
     }
   }, [login])
 
-  // Logic to reduce remaining time of the access token.
-
-  useEffect(() => {
-    if (authState.token && authState.tokenExpirationDate) {
-      const remainingTime =
-        new Date(authState.tokenExpirationDate).getTime() - new Date().getTime()
-      logoutTimer = setTimeout(logout, remainingTime)
-    } else {
-      clearTimeout(logoutTimer)
-    }
-  }, [authState.token, logout, authState.tokenExpirationDate])
+  // useEffect(() => {
+  //   if (authState.token && authState.tokenExpirationDate) {
+  //     const remainingTime =
+  //       new Date(authState.tokenExpirationDate).getTime() - new Date().getTime()
+  //     logoutTimer = setTimeout(logout, remainingTime)
+  //   } else {
+  //     clearTimeout(logoutTimer)
+  //   }
+  // }, [authState.token, logout, authState.tokenExpirationDate])
 
   return {
     ...authState,
