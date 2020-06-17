@@ -8,11 +8,13 @@ const history = createBrowserHistory()
 
 // Automatic addition of a token to request if there is a token.
 
-const createTokenInterceptor = (config) => {
+export const createTokenInterceptor = (config) => {
   const newConfig = { ...config }
-  const token = localStorageService.getToken()
-    ? localStorageService.getToken().token
-    : null
+  const tokenFromStorage = localStorageService.getToken()
+  let token
+  if (tokenFromStorage) {
+    token = tokenFromStorage.access_token
+  }
   if (token) {
     newConfig.headers.Authorization = `Bearer ${token}`
   }
@@ -24,8 +26,8 @@ const createTokenInterceptor = (config) => {
 const createRefreshTokenInterceptor = async (error) => {
   const originalRequest = error.config
   if (
-    error.response.status === 403 &&
-    originalRequest.url === 'http://localhost:3000/api/auth/refresh'
+    error.response.status === 401 &&
+    originalRequest.url === '/api/auth/refresh'
   ) {
     localStorageService.clearStorage()
     history.push('/login')
@@ -37,7 +39,7 @@ const createRefreshTokenInterceptor = async (error) => {
       const response = await axios.get('/api/auth/refresh')
       if (response && response.status === 201) {
         localStorageService.setToken(response.data)
-        axios.defaults.headers.common.Authorization = `Bearer ${
+        originalRequest.headers.Authorization = `Bearer ${
           localStorageService.getToken()
             ? localStorageService.getToken().token
             : null
