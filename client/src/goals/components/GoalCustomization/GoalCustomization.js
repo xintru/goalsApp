@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import {
-  FormGroup,
-  Checkbox,
   FormControl,
   FormLabel,
-  FormControlLabel,
   FormHelperText,
   Button,
   List,
@@ -12,18 +9,14 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core'
+import { DatePicker } from '@material-ui/pickers'
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import { Add as AddIcon, ChevronRight } from '@material-ui/icons'
 
 import SubGoalDialog from './SubGoalDialog'
 import useStyles from './GoalCustomization.style'
 import SubgoalMenu from './SubgoalMenu'
-
-const DATE_OPTIONS = [
-  { name: 'week', label: '1 Неделя' },
-  { name: 'month', label: '1 Месяц' },
-  { name: 'year', label: '1 Год' },
-]
 
 const GoalCustomization = (props) => {
   const classes = useStyles()
@@ -68,16 +61,10 @@ const GoalCustomization = (props) => {
     setNewSubgoalname(evt.target.value.trimLeft())
   }
 
-  const handleChange = (evt) => {
-    const { name, checked } = evt.target
+  const handleChange = (newDate) => {
     setCustomizationOptions((prevCustomizationOptions) => ({
       ...prevCustomizationOptions,
-      date: {
-        week: false,
-        month: false,
-        year: false,
-        [name]: checked,
-      },
+      date: moment(newDate).format(),
     }))
   }
 
@@ -92,22 +79,20 @@ const GoalCustomization = (props) => {
   return (
     <div className={classes.root}>
       <FormControl>
-        <FormLabel component="legend">Выберите срок</FormLabel>
-        <FormGroup row>
-          {DATE_OPTIONS.map((option) => (
-            <FormControlLabel
-              key={option.name}
-              control={
-                <Checkbox
-                  checked={date[option.name]}
-                  onChange={handleChange}
-                  name={option.name}
-                />
-              }
-              label={option.label}
-            />
-          ))}
-        </FormGroup>
+        <FormLabel component="legend" className={classes.legend}>
+          Выберите срок
+        </FormLabel>
+        <DatePicker
+          value={date}
+          onChange={handleChange}
+          format="DD/MM/yyyy"
+          animateYearScrolling
+          allowKeyboardControl
+          disablePast
+          invalidDateMessage="Неверный формат даты."
+          okLabel="Выбрать"
+          cancelLabel="Назад"
+        />
         <FormHelperText
           classes={{
             root: classes.subgoalHelperText,
@@ -126,7 +111,7 @@ const GoalCustomization = (props) => {
                 aria-controls="subgoal-menu"
                 onClick={handleOpenMenu}
               >
-                <ListItemIcon classes={{root: classes.listItem}}>
+                <ListItemIcon classes={{ root: classes.listItem }}>
                   <ChevronRight />
                 </ListItemIcon>
                 <ListItemText>{subgoal.title}</ListItemText>
@@ -177,11 +162,8 @@ const GoalCustomization = (props) => {
 
 GoalCustomization.propTypes = {
   customizationOptions: PropTypes.shape({
-    date: PropTypes.shape({
-      week: PropTypes.bool.isRequired,
-      month: PropTypes.bool.isRequired,
-      year: PropTypes.bool.isRequired,
-    }).isRequired,
+    date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(null)])
+      .isRequired,
     subgoals: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,

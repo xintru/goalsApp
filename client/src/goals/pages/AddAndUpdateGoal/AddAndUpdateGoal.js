@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Paper, Typography, useMediaQuery } from '@material-ui/core'
 import { useHistory, useParams } from 'react-router-dom'
+import moment from 'moment'
 
 import { UserContext } from '../../../util/context/user-context'
 import { MAIN_PAGE } from '../../../util/constants/routes'
@@ -16,7 +17,6 @@ import GoalStepperControls from '../../components/GoalStepper/GoalStepperControl
 import GoalForm from '../../components/GoalForm/GoalForm'
 import GoalCustomization from '../../components/GoalCustomization/GoalCustomization'
 import GoalSummary from '../../components/GoalSummary/GoalSummary'
-import { getGoalDate } from '../../../util/helpers/getGoalDate'
 
 const steps = ['Опишите', 'Кастомизируйте', 'Добавьте']
 
@@ -33,11 +33,9 @@ const AddAndUpdateGoal = () => {
   const { formState, onInputHandler } = useForm(goalInputs, !!currentGoal)
   const [activeStep, setActiveStep] = useState(0)
   const [customizationOptions, setCustomizationOptions] = useState({
-    date: {
-      week: true,
-      month: false,
-      year: false,
-    },
+    date: moment()
+      .add('1', 'd')
+      .format(),
     subgoals: [],
   })
   const [httpData, setHttpData] = useState({
@@ -53,6 +51,7 @@ const AddAndUpdateGoal = () => {
       )
       setCustomizationOptions((prevOptions) => ({
         ...prevOptions,
+        date: currentGoal.date,
         subgoals: [...currentGoal.subgoals],
         completed: currentGoal.completed,
       }))
@@ -105,7 +104,7 @@ const AddAndUpdateGoal = () => {
       case 1:
         return setHttpData((prevHttpData) => ({
           ...prevHttpData,
-          date: getGoalDate(customizationOptions.date),
+          date: moment(customizationOptions.date).format(),
           subgoals: customizationOptions.subgoals,
         }))
       default:

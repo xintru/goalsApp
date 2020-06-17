@@ -13,6 +13,12 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: '-1.5rem',
     },
   },
+  legend: {
+    marginBottom: '.5rem',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '.5rem',
+    },
+  },
   listItem: {
     minWidth: 10,
   },
@@ -20,7 +26,11 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
   subgoalHelperText: {
+    marginTop: '.5rem',
     textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '.5rem',
+    },
   },
   addSubgoalButton: {
     margin: '1rem auto',
