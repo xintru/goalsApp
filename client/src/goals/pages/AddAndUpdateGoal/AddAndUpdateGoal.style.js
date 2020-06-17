@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     height: 'calc(100vh - 64px)',
   },

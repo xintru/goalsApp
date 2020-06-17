@@ -1,12 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: 'center',
   },
   subgoalList: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, 50%)',
+    wordWrap: 'normal',
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: '1fr',
+      marginLeft: '-1.5rem',
+    },
+  },
+  listItem: {
+    minWidth: 10,
   },
   subgoalListItem: {
     cursor: 'pointer',

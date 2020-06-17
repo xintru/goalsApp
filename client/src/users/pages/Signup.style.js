@@ -12,6 +12,9 @@ const useStyles = makeStyles({
     justifyContent: 'flex-end',
     minWidth: 300,
   },
+  title: {
+    textAlign: 'center',
+  },
   card: {
     width: '20vw',
     minWidth: 300,
@@ -27,7 +30,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   submitButton: {
-    marginTop: 10,
+    marginTop: 20,
   },
 })
 

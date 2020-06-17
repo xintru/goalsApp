@@ -14,11 +14,20 @@ import useStyles from './GoalSummary.style'
 const GoalSummary = () => {
   const classes = useStyles()
   const { httpData } = useContext(GoalContext)
+
   return (
     <div className={classes.root}>
-      <Typography variant="h5" color='primary'>{httpData.title}</Typography>
-      <Typography className={classes.description}>{httpData.description}</Typography>
-      <Chip variant="outlined" color="secondary" label={`До ${new Date(httpData.date).toLocaleDateString()}`}/>
+      <Typography variant="h5" color="primary">
+        {httpData.title}
+      </Typography>
+      <Typography className={classes.description}>
+        {httpData.description}
+      </Typography>
+      <Chip
+        variant="outlined"
+        color="secondary"
+        label={`До ${new Date(httpData.date).toLocaleDateString()}`}
+      />
       <hr />
       {!!httpData.subgoals.length && (
         <>
@@ -28,7 +37,7 @@ const GoalSummary = () => {
                 key={`subgoal-item-${i + 1}`}
                 aria-controls="subgoal-menu"
               >
-                <ListItemIcon>
+                <ListItemIcon classes={{ root: classes.listItem }}>
                   <ChevronRight />
                 </ListItemIcon>
                 <ListItemText>{subgoal.title}</ListItemText>

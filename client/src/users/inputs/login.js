@@ -18,3 +18,4 @@ const loginInputs = [
 ]
 
 export default loginInputs
+
