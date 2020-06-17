@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       width: '80%',
       fontSize: '1rem',
-      margin: '40px auto',
     },
   },
   date: {

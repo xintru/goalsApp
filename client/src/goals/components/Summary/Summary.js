@@ -18,6 +18,7 @@ import Loading from '../../../shared/UI/Loading/Loading'
 import AvatarComponent from '../../../shared/UI/AvatarComponent/AvatarComponent'
 import calcGeneralProgress from '../../../util/helpers/calcGeneralProgress'
 import useStyles from './Summary.style'
+import { MAX_PROGRESS } from '../../../util/constants/summary'
 
 const Summary = (props) => {
   const { name, goals, avatar, isLoading } = props
@@ -67,7 +68,11 @@ const Summary = (props) => {
                       disableTypography
                       primary={<Typography>В процессе:</Typography>}
                       secondary={
-                        <LinearProgress variant="determinate" value={50} color="secondary"/>
+                        <LinearProgress
+                          variant="determinate"
+                          value={MAX_PROGRESS - calcGeneralProgress(goals)}
+                          color="secondary"
+                        />
                       }
                     />
                   </ListItem>

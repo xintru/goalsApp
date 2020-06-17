@@ -126,7 +126,7 @@ const GoalCustomization = (props) => {
                 aria-controls="subgoal-menu"
                 onClick={handleOpenMenu}
               >
-                <ListItemIcon>
+                <ListItemIcon classes={{root: classes.listItem}}>
                   <ChevronRight />
                 </ListItemIcon>
                 <ListItemText>{subgoal.title}</ListItemText>

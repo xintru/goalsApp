@@ -15,6 +15,9 @@ const GoalForm = (props) => {
       </Typography>
       {goalInputs.map((input) => (
         <TextField
+          inputProps={{
+            maxLength: input.type === 'textarea' ? 100 : 40,
+          }}
           className={classes.textField}
           multiline={input.type === 'textarea'}
           variant="outlined"

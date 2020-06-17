@@ -16,7 +16,7 @@ const SignUpForm = (props) => {
       noValidate
       autoComplete="no"
     >
-      <Typography variant="h5">Заполните форму регистрации</Typography>
+      <Typography variant="h5" className={classes.title}>Заполните форму регистрации</Typography>
       {signupInputs.map((input) => (
         <TextField
           className={classes.textField}

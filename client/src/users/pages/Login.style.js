@@ -22,7 +22,8 @@ const useStyles = makeStyles({
     width: '100%',
   },
   link: {
-    marginTop: 10,
+    textAlign: 'center',
+    margin: '15px auto',
   },
 })
 
